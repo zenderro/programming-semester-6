@@ -105,8 +105,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Теорема (с. 12). При линейно независимых <span class="math inline">\(g_i\)</span> и <span class="math inline">\(λ_j\)</span>:</p>
 <ol type="1">
 <li>Задача линейной интерполяции корректна <span class="math inline">\(⇔\)</span> <span class="math inline">\(m=n\)</span> и матрица <span class="math inline">\(A = (λ_j(g_i))\)</span> обратима;</li>
-<li>Вектор коэффициентов $α = (α_i) = A^{-1} (λ_j(f)) $;</li>
-<li><span class="math inline">\(P ∘ P = P\)</span>.</li>
+<li>Вектор коэффициентов <span class="math inline">\(α = (α_i) = A^{-1} (λ_j(f))\)</span></li>
+<li>Идемпотентность <span class="math inline">\(P\)</span> - <span class="math inline">\(P ∘ P = P\)</span>.</li>
 </ol>
 <p><span class="math inline">\(Pf ≡ Σ_i α_i g_i\)</span></p>
 </section>
@@ -114,13 +114,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Обусловленность базиса</h1>
 <p>Как и в случае с решением линейных систем, необходимо учитывать вычислительную погрешность.</p>
 <p>Число обусловленности базиса <span class="math inline">\(g_i\)</span>: <span class="math inline">\(\mathrm{cond}(g_i) = \dfrac{\min_α{K(α)}}{\max_α{K(α)}}\)</span></p>
-<p><span class="math inline">\(K(α) = \dfrac{\| \sum α_i g_i \|_G}{\| α \|}\)</span></p>
+<p><span class="math inline">\(K(α) = \dfrac{\| \sum α_i g_i \|_G}{\| α \|_{𝐑^n}}\)</span></p>
 </section>
 <section id="интерполяционный-многочлен-лагранжа-1" class="slide level1">
 <h1>Интерполяционный многочлен Лагранжа</h1>
 <p>Работаем с функциями одной переменной на отрезке <span class="math inline">\(f : 𝐑 ⊃ [a, b] → 𝐑\)</span><br />
 Для точек <span class="math inline">\(x_1 &lt; x_2 &lt; … &lt; x_n\)</span> и условий <span class="math inline">\(λ_j = f(x_j)\)</span>:</p>
-<p><span class="math inline">\(l_i(x) = \prod\limits_{j \neq i} \dfrac{x - x_j}{x_i - x_j}\)</span></p>
+<p><span class="math inline">\(g_i(x) ≡ l_i(x) = \prod\limits_{j \neq i} \dfrac{x - x_j}{x_i - x_j}\)</span></p>
 <p><span class="math inline">\(λ_j(l_i) = δ_{ij}\)</span></p>
 <p><span class="math inline">\(L f = \sum f(x_i) l_i\)</span></p>
 <p>Число обусловленности: <span class="math inline">\(κ ⩾ C e^{n/2}\)</span></p>
@@ -128,10 +128,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="наивная-реализация" class="slide level1">
 <h1>Наивная реализация</h1>
 <ol type="1">
-<li><span class="math inline">\(Y_i = \dfrac{f(x_i)}{\prod\limits_{j \neq i} (x_i - x_j)}\qquad\)</span> <span class="math inline">\(n^2 - n\)</span> операций</li>
-<li><span class="math inline">\(φ(x) = \prod_i (x - x_i) \qquad\)</span> <span class="math inline">\(n (- 1)\)</span> операций</li>
-<li><span class="math inline">\(L f(x) = φ(x) \sum \dfrac{Y_i}{x - x_i}\qquad\)</span> <span class="math inline">\(n \pm 1\)</span> операций<br />
-— есть значительно более быстрый способ.</li>
+<li><span class="math inline">\(Y_i = \dfrac{f(x_i)}{\prod\limits_{j \neq i} (x_i - x_j)}\qquad\)</span> <span class="math inline">\(2(n^2 - n)\)</span> операций</li>
+<li><span class="math inline">\(φ(x) = \prod_i (x - x_i) \qquad\)</span> <span class="math inline">\(n + n - 1\)</span> операций</li>
+<li><span class="math inline">\(L f(x) = φ(x) \sum \dfrac{Y_i}{x - x_i}\qquad\)</span> <span class="math inline">\((n - 1) + (n + 1)\)</span> операций<br />
+Итого - <span class="math inline">\( 2n^2 + O(n)\)</span> операций — есть значительно более быстрый способ.</li>
 </ol>
 </section>
 <section id="задача-ii" class="slide level1">
