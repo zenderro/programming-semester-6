@@ -103,7 +103,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="co">// записать в matrix_buffer подряд</span>
   <span class="kw">for</span> (<span class="dt">int</span> col = <span class="dv">0</span>; col &lt; N; col += P) {
     MPI_Scatter(row_buffer+col, <span class="dv">1</span>, MPI_DOUBLE,
-      <span class="dv">0</span>, MPI_COMM_WORLD);
+	matrix_buffer, <span class="dv">1</span>, MPI_DOUBLE, 
+	<span class="dv">0</span>, MPI_COMM_WORLD);
   }
 }</code></pre></div>
 </section>
