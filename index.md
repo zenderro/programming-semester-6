@@ -21,7 +21,7 @@ layout: default
 ## Постановка задачи линейной интерполяции. Базовые требования к программе.
 [презентация — html](presentations/05-Interpolation-Start.html)
 
-## Рисование в Qt4
+## Рисование в Qt5
 [презентация — html](presentations/06-Task2.html)
 
 ## OpenGL в Qt4

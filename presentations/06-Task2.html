@@ -90,14 +90,15 @@ img { width: 95%; border: none; }
 </section>
 <section id="qt" class="slide level1">
 <h1>Qt</h1>
-<p>Скачать Qt 4: <a href="http://download.qt.io/archive/qt/4.8/4.8.6/" class="uri">http://download.qt.io/archive/qt/4.8/4.8.6/</a></p>
+<p>Скачать Qt 5: <a href="http://download.qt.io/official_releases/qt/5.14/5.14.2/" class="uri">http://download.qt.io/official_releases/qt/5.14/5.14.2/</a></p>
 <p>При установке проверить, что отмечен Qt Creator, он может открыть файл проекта <code>basic_graph.pro</code></p>
 <p>Проще компилировать в терминале. Вместо <code>Makefile</code> используется файл проекта:</p>
 <pre class="make"><code>HEADERS       = window.h
 SOURCES       = main.cpp \
-              window.cpp</code></pre>
+              window.cpp
+QT += widgets</code></pre>
 <p>Сборка (в каталоге с программой):</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">qmake</span>        <span class="co"># qmake-qt4 в дисплейных классах</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">qmake</span>        <span class="co"># qmake-qt5 в дисплейных классах</span>
              <span class="co"># Для отладки: qmake CONFIG+=debug</span>
 <span class="kw">make</span></code></pre></div>
 </section>
@@ -187,7 +188,7 @@ std::cin &gt;&gt; x;</code></pre></div>
 </section>
 <section id="ввод-с-клавиатуры-ii" class="slide level1">
 <h1>Ввод с клавиатуры II</h1>
-<h3 id="графический-httpdoc.qt.ioqt-4.8qinputdialog.htmldetails">(графический) <a href="http://doc.qt.io/qt-4.8/qinputdialog.html#details" class="uri">http://doc.qt.io/qt-4.8/qinputdialog.html#details</a></h3>
+<h3 id="графический-httpsdoc.qt.ioqt-5qinputdialog.htmldetails">(графический) <a href="https://doc.qt.io/qt-5/qinputdialog.html#details" class="uri">https://doc.qt.io/qt-5/qinputdialog.html#details</a></h3>
 <p>С использованием диалога (в других программах лучше не использовать — раздражает пользователя, по-хорошему нужно просто держать рядом с основным окном общий диалог со всеми параметрами и кнопкой «обновить»)</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;QInputDialog&gt;</span>
 
@@ -204,11 +205,11 @@ std::cin &gt;&gt; x;</code></pre></div>
 </section>
 <section id="рисование-в-qpainter-i" class="slide level1">
 <h1>Рисование в QPainter I</h1>
-<h3 id="httpdoc.qt.ioqt-4.8qpainter.html"><a href="http://doc.qt.io/qt-4.8/qpainter.html" class="uri">http://doc.qt.io/qt-4.8/qpainter.html</a></h3>
+<h3 id="httpsdoc.qt.ioqt-5qpainter.html"><a href="https://doc.qt.io/qt-5/qpainter.html" class="uri">https://doc.qt.io/qt-5/qpainter.html</a></h3>
 <p>Для перерисовки окна после обновления параметров вызывайте <code>update()</code>.</p>
 <p>Всё рисование выполняется в <code>Window::paintEvent</code>.</p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">painter.setPen(<span class="st">&quot;black&quot;</span>); <span class="co">// установить цвет</span></code></pre></div>
-<p>Полный список цветов: <a href="http://doc.qt.io/qt-4.8/qcolor.html#setNamedColor" class="uri">http://doc.qt.io/qt-4.8/qcolor.html#setNamedColor</a></p>
+<p>Полный список цветов: <a href="https://doc.qt.io/qt-5/qcolor.html#setNamedColor" class="uri">https://doc.qt.io/qt-5/qcolor.html#setNamedColor</a></p>
 <div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// линия от (x1, y1) до (x2, y2)</span>
 <span class="co">// в текущей системе координат</span>
 painter.drawLine(<span class="ot">QPointF</span>(x1, y1), <span class="ot">QPointF</span>(x2, y2));</code></pre></div>
