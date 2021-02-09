@@ -80,6 +80,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="приближение-функции-одной-переменной">Приближение функции одной переменной</h3>
 <h3 id="приближение-функции-нескольких-переменных">Приближение функции нескольких переменных</h3>
 <h2 id="введение-в-mpi">Введение в MPI</h2>
+<h3 id="установка-mpi">Установка MPI</h3>
+<h3 id="отладка-mpi-программ">Отладка MPI-программ</h3>
 <p><a href="https://zenderro.github.io/programming-semester-6/" class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
 </section>
 <section id="задача-1" class="slide level1">
@@ -110,8 +112,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="fragment">Теория сдаётся письменно, ~1.5 часа. Нужно ответить на 2.5 вопроса из 5.</li>
 <li class="fragment">Возможен досрочный теоретический зачёт, но к нему нужно сдать 3 задачи.</li>
 <li class="fragment">В начале зачётной недели — первый теоретический зачёт.</li>
-<li class="fragment">После него — два практических зачёта по 1.5 часа для тех, кто не сдал 3 задачи.</li>
-<li class="fragment">Если вы не сдали задачи за 2 практических зачёта, следующая попытка — на пересдаче.</li>
+<li class="fragment">После него — три практических зачёта по 1.5 часа для тех, кто не сдал 3 задачи.</li>
+<li class="fragment">Если вы не сдали задачи за три практических зачёта, следующая попытка — на пересдаче.</li>
 <li class="fragment">В конце зачётной недели — второй теоретический зачёт.</li>
 <li class="fragment">Если вы не сдали теорию со второго раза, следующая попытка — на пересдаче.</li>
 </ul>
@@ -175,8 +177,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Запуск осуществляется с использованием команды <code>mpirun</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np количество_процессов имя_программы аргументы_программы</code></pre></div>
 <p>например:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 ./a.out --formula 2 -n 2000</code></pre></div>
-<p>Аргументы <code>--formula 2</code> и <code>-n 2000</code> передаются в вашу программу (<code>./a.out</code>), аргумент <code>-np 4</code> не передаётся.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 ./main 1000 10 1</code></pre></div>
+<p>Аргументы <code>1000 10 1</code> передаются в вашу программу (<code>./main</code>), аргумент <code>-np 4</code> не передаётся.</p>
 </section>
 <section id="инициализация-и-завершение" class="slide level1">
 <h1>Инициализация и завершение</h1>
@@ -187,7 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="номер-и-общее-количество-процессов" class="slide level1">
 <h1>Номер и общее количество процессов</h1>
-<p>Количество запущенных процессов не должно передаваться в программу в качестве отдельного аргумента командной строки, но определяется с использованием функций <code>MPI_Comm_size</code>. Номер, который автоматически присваивается процессу, может быть получен с помощью функции <code>MPI_Comm_rank</code>. Пример: при запуске <code>p</code> процессов, в каждом из результат выполнения <code>MPI_Comm_size</code> равен <code>p</code>, а результат выполнения <code>MPI_Comm_rank</code> — числам от <code>0</code> до <code>p-1</code>. Нулевой процесс обычно для простоты считают «главным» и выполняют из него весь ввод-вывод (при разработке допускается использовать отладочный <code>printf</code>-вывод во всех процессах).</p>
+<p>Количество запущенных процессов не должно передаваться в программу в качестве отдельного аргумента командной строки, но определяется с использованием функций <code>MPI_Comm_size</code>. Номер, который автоматически присваивается процессу, может быть получен с помощью функции <code>MPI_Comm_rank</code>. Пример: при запуске <code>p</code> процессов, в каждом из них результат выполнения <code>MPI_Comm_size</code> равен <code>p</code>, а результат выполнения <code>MPI_Comm_rank</code> — числам от <code>0</code> до <code>p-1</code>. Нулевой процесс обычно для простоты считают «главным» и выполняют из него весь ввод-вывод (при разработке допускается использовать отладочный <code>printf</code>-вывод во всех процессах).</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> MPI_Comm_rank(MPI_Comm comm, <span class="dt">int</span> *rank);
 <span class="dt">int</span> MPI_Comm_size(MPI_Comm comm, <span class="dt">int</span> *total_procs);</code></pre></div>
 <!--* -->
@@ -209,12 +211,70 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">return</span> <span class="dv">0</span>;
 }</code></pre></div>
 </section>
-<section id="задание-к-следующему-занятию" class="slide level1">
+<!--<section id="задание-к-следующему-занятию" class="slide level1">
 <h1>Задание к следующему занятию</h1>
 <ol type="1">
 <li class="fragment">В код программы добавить инициализацию и завершение MPI, получение общего количества и текущего номера процесса.</li>
 <li class="fragment">Подготовить схему распределения матрицы по <span class="math inline">\(P\)</span> процессам и обмена данными между процессами, с использованием которой ваша программа будет удовлетворять требованиям по ускорению, используемой памяти и пересылкам.</li>
 </ol>
+</section>-->
+<section id="установка-mpi-1" class="slide level1">
+<h1>Установка MPI</h1>
+<p>Основные реализации: MPICH и OpenMPI, ещё на кластерах бывает MVAPICH, Intel MPI. Скорее всего, обе реализации есть в пакетах используемого вами дистрибутива Linux. Можно выбрать любую.</p>
+<h2 id="openmpi">OpenMPI</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Debian / Ubuntu</span>
+<span class="kw">apt-get</span> install openmpi-bin libopenmpi-dev
+<span class="co"># Fedora / CentOS</span>
+<span class="kw">yum</span> install openmpi
+<span class="co"># Если не находит mpicc</span>
+<span class="kw">export</span> <span class="ot">PATH=</span>/usr/lib64/openmpi/bin:<span class="ot">$PATH</span>
+<span class="kw">export</span> <span class="ot">LD_LIBRARY_PATH=</span>/usr/lib64/openmpi/lib:<span class="ot">$LD_LIBRARY_PATH</span></code></pre></div>
+<h2 id="mpich">MPICH</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Debian / Ubuntu</span>
+<span class="kw">apt-get</span> install mpich libmpich-dev
+<span class="co"># Fedora / CentOS</span>
+<span class="kw">yum</span> install mpich</code></pre></div>
+</section>
+<section id="отладка-в-mpi" class="slide level1">
+<h1>Отладка в MPI</h1>
+<h2 id="универсальный-способ">Универсальный способ</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 xterm -e gdb --args ./main 1000 10 1</code></pre></div>
+<dl>
+<dt class="fragment"><code>mpirun -np 4</code></dt>
+<dd class="fragment">запустить 4 процесса MPI,
+</dd>
+<dt class="fragment"><code>xterm -e</code></dt>
+<dd class="fragment">каждый из которых запускает графический терминал (можно использовать <code>konsole -e</code> или <code>gnome-terminal -e</code>),
+</dd>
+<dt class="fragment"><code>gdb --args</code></dt>
+<dd class="fragment">в котором запущен отладчик
+</dd>
+<dt class="fragment"><code>./main 1000 10 1</code></dt>
+<dd class="fragment">с вашей программой
+</dd>
+</dl>
+<p>Команда откроет по терминалу с GDB на процесс. В каждом из отладчиков затем нужно набрать <code>r</code> для запуска программы и далее — обычная работа с отладчиком.</p>
+</section>
+<section id="mpich-mpigdb" class="slide level1">
+<h1>MPICH <code>mpigdb</code></h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 -gdb ./main 1000 10 1</code></pre></div>
+<p>Запускает 4 процесса с gdb и предоставляет единый интерфейс для управления отладчиками.</p>
+<p><a href="http://docstore.mik.ua/manuals/ru/mpich_guide/mpich_userguide_site/node30.html" class="uri">http://docstore.mik.ua/manuals/ru/mpich_guide/mpich_userguide_site/node30.html</a></p>
+<p>Дополнительные команды:</p>
+<dl>
+<dt class="fragment"><code>z 0</code></dt>
+<dd class="fragment">переключить управление на отладчик процесса 0 (аналогично — для других номеров процессов).
+</dd>
+<dt class="fragment"><code>z</code></dt>
+<dd class="fragment">переключить управление на все отладчики сразу.
+</dd>
+</dl>
+<p>Если управление у всех отладчиков, любая команда транслируется на все процессы.</p>
+<p><code>Ctrl+C</code> — если управление у отладчика одного из процессов, но процесс ожидает завершения MPI-пересылки, показать меню переключения процессов.</p>
+</section>
+<section id="функции-пересылки-данных-mpi-1" class="slide level1">
+<h1>Функции пересылки данных MPI</h1>
+<p><a href="http://zenderro.github.io/programming-semester-6/MPI-cheatsheet" class="uri">http://zenderro.github.io/programming-semester-6/MPI-cheatsheet</a></p>
 </section>
     </div>
   </div>

@@ -98,18 +98,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="отладка-в-mpi" class="slide level1">
 <h1>Отладка в MPI</h1>
 <h2 id="универсальный-способ">Универсальный способ</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 xterm -e gdb --args ./my-program -f 123 -x 456</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 xterm -e gdb --args ./main 1000 10 1</code></pre></div>
 <dl>
-<dt class="fragment"><code>mpirun -n 4</code></dt>
+<dt class="fragment"><code>mpirun -np 4</code></dt>
 <dd class="fragment">запустить 4 процесса MPI,
 </dd>
 <dt class="fragment"><code>xterm -e</code></dt>
-<dd class="fragment">каждый из которых запускает графический терминал (можно использовать <code>konsole -e</code>),
+<dd class="fragment">каждый из которых запускает графический терминал (можно использовать <code>konsole -e</code> или <code>gnome-terminal -e</code>),
 </dd>
 <dt class="fragment"><code>gdb --args</code></dt>
 <dd class="fragment">в котором запущен отладчик
 </dd>
-<dt class="fragment"><code>./my-program -f 123 -x 456</code></dt>
+<dt class="fragment"><code>./main 1000 10 1</code></dt>
 <dd class="fragment">с вашей программой
 </dd>
 </dl>
@@ -117,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="mpich-mpigdb" class="slide level1">
 <h1>MPICH <code>mpigdb</code></h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 -gdb ./my-program -f 123 -x 456</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mpirun</span> -np 4 -gdb ./main 1000 10 1</code></pre></div>
 <p>Запускает 4 процесса с gdb и предоставляет единый интерфейс для управления отладчиками.</p>
 <p><a href="http://docstore.mik.ua/manuals/ru/mpich_guide/mpich_userguide_site/node30.html" class="uri">http://docstore.mik.ua/manuals/ru/mpich_guide/mpich_userguide_site/node30.html</a></p>
 <p>Дополнительные команды:</p>
