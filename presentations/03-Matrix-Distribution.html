@@ -73,7 +73,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <section id="методы-приближения-функций" class="slide level1">
-<h1>Методы приближения функций</h1>
+<h1>Пересылка данных, работа с матрицей в MPI</h1>
 <h2 id="mpi">MPI</h2>
 <h3 id="разбиение-матрицы">Разбиение матрицы</h3>
 <h3 id="пересылка-матрицы">Пересылка матрицы</h3>
@@ -95,10 +95,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="co">// Следующий цикл нужно распараллелить:</span>
   <span class="kw">for</span> (<span class="dt">int</span> i = diag; i &lt; n; i++) {
     <span class="co">// Следующий цикл должен выполняться на одном узле</span>
-    <span class="co">// (или не иметь точек синхронизации/пересылки для элементов)</span>
+    <span class="co">// (или не иметь точек синхронизации/пересылки для</span>
+    <span class="co">// элементов)</span>
     <span class="kw">for</span> (<span class="dt">int</span> k = diag; k &lt; n; k++) {
       <span class="co">// ...</span>
     }
+  }
+}</code></pre></div>
+</section>
+<section id="рассылка-матрицы-1" class="slide level1">
+<h1>Рассылка матрицы</h1>
+<p>Как и раньше, в примере рассмотрен только случай <span class="math inline">\(N ⋮ P\)</span>, для использования в программе нужно модифицировать для случая деления с остатком (например, добавить выравнивание).</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">double</span> *matrix_buffer = calloc(N*N/P, <span class="kw">sizeof</span>(<span class="dt">double</span>));
+<span class="co">// только в 0-м процессе</span>
+<span class="dt">double</span> *row_buffer = calloc(N, <span class="kw">sizeof</span>(<span class="dt">double</span>));
+<span class="co">// ...</span>
+<span class="kw">for</span> (<span class="dt">int</span> row=<span class="dv">0</span>; row &lt; N; row++) {
+  <span class="co">// считать/сгенерировать</span>
+  <span class="co">// строку row размера N в row_buffer</span>
+  read_row(N, row, row_buffer);
+  <span class="co">// считать из row_buffer части строки через P элементов</span>
+  <span class="co">// записать в matrix_buffer подряд</span>
+  <span class="kw">for</span> (<span class="dt">int</span> col = <span class="dv">0</span>; col &lt; N; col += P) {
+    MPI_Scatter(row_buffer+col, <span class="dv">1</span>, MPI_DOUBLE,
+	matrix_buffer, <span class="dv">1</span>, MPI_DOUBLE, 
+	<span class="dv">0</span>, MPI_COMM_WORLD);
   }
 }</code></pre></div>
 </section>
@@ -153,12 +174,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>для обращения матрицы можно разбивать так же, как и исходную, в некоторых случаях можно транспонировать разбиение (по строкам, а не по столбцам).</li>
 </ul>
 </section>
+
+<section id="передача-сообщений" class="slide level1">
+<h1>Передача сообщений</h1>
+<p>Для лаконичности кода часто при пересылках «точка-точка» удобно бывает не рассматривать отдельно случай, когда отправитель и получатель — один и тот же процесс (например, при <span class="math inline">\(P=1\)</span>). В общем случае это не рекомендуется (лучше проверять if-ом). buff1 и buff2 должны быть разными участками памяти.</p>
+<p>Источник: <a href="http://stackoverflow.com/a/20143164" class="uri">http://stackoverflow.com/a/20143164</a></p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">MPI_Request req;
+<span class="co">// Start a non-blocking receive</span>
+MPI_Irecv(buff2, count, datatype, sender, <span class="dv">0</span>, comm, &amp;req);
+<span class="co">// Send to everyone</span>
+MPI_Send(buff1, count, datatype, receiver, <span class="dv">0</span>, comm);
+<span class="co">// Complete the non-blocking receive</span>
+MPI_Wait(&amp;req, MPI_STATUS_IGNORE);</code></pre></div>
+</section>
 <section id="следующие-шаги" class="slide level1">
 <h1>Следующие шаги</h1>
 <ol type="1">
-<li>Задать диагональную матрицу, для неё реализовать и отладить норму невязки.</li>
+<li>Продумать схему распараллеливания своего метода с учётом распределённой памяти и необходимости пересылок</li>
+<li>Подготовить подпрограмму генерации и чтения матрицы из файла с рассылкой по всем процессам</li>
+<li>Подпрограмма вывода матрицы на экран в нужном порядке всеми процессами</li>
+<!--<li>Задать диагональную матрицу, для неё реализовать и отладить норму невязки.</li>
 <li>Задать верхнюю треугольную матрицу, реализовать обратный ход.</li>
-<li>Реализовать приведение к треугольному виду согласно своему методу :)</li>
+<li>Реализовать приведение к треугольному виду согласно своему методу :)</li>-->
 </ol>
 </section>
     </div>

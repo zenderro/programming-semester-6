@@ -12,11 +12,11 @@ layout: default
 <!--## Отладка в MPI
 [презентация — html](presentations/02-MPI-rest.html)-->
 
-## Распределение матрицы
+## Распределение матрицы. Пересылка сообщений в рамках одного процесса
 [презентация — html](presentations/03-Matrix-Distribution.html)
 
-## Пересылка сообщений в рамках одного процесса
-[презентация — html](presentations/04-MPI-send-to-self.html)
+<!--## Пересылка сообщений в рамках одного процесса
+[презентация — html](presentations/04-MPI-send-to-self.html)-->
 
 ## Постановка задачи линейной интерполяции. Базовые требования к программе.
 [презентация — html](presentations/05-Interpolation-Start.html)

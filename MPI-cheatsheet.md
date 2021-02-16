@@ -2,9 +2,9 @@
 layout: default
 ---
 # Программирование с использованием MPI — начальный уровень
-В настоящем документе содержася базовые сведения по использованию стандарта MPI в программах на языке C в объёме, достаточном для решения первой задачи Практикума на ЭВМ в шестом семестре. Для написания программ, предназначенных для использования в реальных программах рекомендуется изучить документацию и использовать развёрнутые учебные пособия — в особенности, с упором на асинхронную передачу сообщений (`MPI_Isend, MPI_Irecv`) и передачу сложных типов данных.
+В настоящем документе содержатся базовые сведения по использованию стандарта MPI в программах на языке C в объёме, достаточном для решения первой задачи Практикума на ЭВМ в шестом семестре. Для написания программ, предназначенных для использования в реальных программах рекомендуется изучить документацию и использовать развёрнутые учебные пособия — в особенности, с упором на асинхронную передачу сообщений (`MPI_Isend, MPI_Irecv`) и передачу сложных типов данных.
 
-С вопросами, исправлениями и дополнениями по документу обращайтесь по адресу andrey.zenzinov@gmail.com
+С вопросами, исправлениями и дополнениями по документу обращайтесь по адресу [andrey.zenzinov@gmail.com](mailto:andrey.zenzinov@gmail.com)
 
 ## Компиляция и запуск
 
@@ -111,9 +111,9 @@ int main(int argc, char **argv) {
 `unsigned int` | `MPI_UNSIGNED`
 `double`  | `MPI_DOUBLE`
 
-Для полного списка см., например, http://linux.die.net/man/3/mpi_double, или `man mpi_double`.
+Для полного списка см., например, [описание `MPI_DOUBLE`](http://linux.die.net/man/3/mpi_double), или `man mpi_double`.
 
-Кроме того, MPI предоставляет возможность определения своих типов данных для передачи сложных структур. В рамках практикума это, скорее всего, не понадобится, но при необходимости можно начать смотреть, например, с презентации https://www.rc.colorado.edu/sites/default/files/Datatypes.pdf
+Кроме того, MPI предоставляет возможность определения своих типов данных для передачи сложных структур. В рамках практикума это, скорее всего, не понадобится, но при необходимости можно начать смотреть, например, [отсюда](https://www.codingame.com/playgrounds/349/introduction-to-mpi/custom-types).
 
 ## Передача данных «точка-точка»
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv) {
 
   if (size < 2) {
     printf("Too few processes\n");
-    MPI_Abort(MPI_Comm_world, 1);
+    MPI_Abort(MPI_COMM_WORLD, 1);
   }
 
   buf1 = calloc(2, sizeof(double));
@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
   buf1[0] = (double)rank;
   buf1[1] = -2.;
   buf2[0] = -1.;
-  buf2[0] = -3.;
+  buf2[1] = -3.;
 
   PRINT_BUF;
 
@@ -227,9 +227,9 @@ int main(int argc, char **argv) {
 
 ## Групповые операции
 
-В рамках используемого стандарта MPI версии 2 определяются только блокирующие групповые операции. Стандарт MPI версии 3 вводит неблокирующие групповые операции, но, поскольку принят он был совсем недавно (в 2012 году), такие функции могут быть доступны не везде. Как и в случае с операциями «точка-точка», в рамках практикума рассматриваются только блокирующие операции.
+В рамках используемого стандарта MPI версии 2 определяются только блокирующие групповые операции. Стандарт MPI версии 3 вводит неблокирующие групповые операции, но, поскольку принят он был относительно недавно (в 2012 году), такие функции могут быть доступны не везде. Как и в случае с операциями «точка-точка», в рамках практикума рассматриваются только блокирующие операции.
 
-Картинки-иллюстрации взяты с сайта http://mpitutorial.com/tutorials/mpi-scatter-gather-and-allgather/
+Картинки-иллюстрации взяты с сайта [http://mpitutorial.com](http://mpitutorial.com/tutorials/mpi-scatter-gather-and-allgather/). Там же можете найти примеры использования.
 
 ```c
 int MPI_Bcast( void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm );
@@ -353,7 +353,7 @@ int MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
 
 <!--* -->
 
-`MPI_Scatter` — разбить данные из `sendbuf` на последовательные части размером `send_count` и разослать соответствующие части про процессам. Аргументы `send...` могут иметь любое значение при вызове в процессах-получателях (всех процессах, кроме `root`). Буфер `sendbuf` должен иметь размер `sendcount * <MPI_Comm_size(comm)>`. На практике лучше передавать `sendtype = recvtype`, `sendcount = recvcount`.
+`MPI_Scatter` — разбить данные из `sendbuf` на последовательные части размером `send_count` и разослать соответствующие части по процессам. Аргументы `send...` могут иметь любое значение при вызове в процессах-получателях (всех процессах, кроме `root`). Буфер `sendbuf` должен иметь размер `sendcount * <MPI_Comm_size(comm)>`. На практике лучше передавать `sendtype = recvtype`, `sendcount = recvcount`.
 
 ```c
 int MPI_Gather(void *send_data, int send_count, MPI_Datatype send_datatype,
@@ -419,7 +419,7 @@ vqwyVmX2JxisykyVVcaqzH4Eg1WZqbLKWJXZb2D4qjK/+VrT2y81/fyFptffaFp4AQy7KrNP90rs
 qsw+BcOuyuxTMOyqzH4Fw6ru7F8wjOrOfgbDqMrsXzDWVZl9fxJpUZU5OLsmFlWZAzCyLKoyB2CM
 CsAEYFwNJpCpfv0/5QAV2eTgUrYAAAAASUVORK5CYII="></p>
 
-`MPI_Gather` — обратная к `MPI_Scatter` операция — собрать в процессе `root` массив из частей, распределённых по процессам. Для процессов кроме `root` аргументы `recv_data`, `recv_count`, `recv_datatype` могут иметь любое значение. Как и в случае `MPI_Scatter`, безопасными значениями аргументов в `root` являются `send_datatype = recv_datatype` и `send_count = recv_count`.
+`MPI_Gather` — обратная к `MPI_Scatter` операция — собрать в процессе `root` массив из частей, распределённых по процессам. Для процессов кроме `root` аргументы `recv_data`, `recv_count`, `recv_datatype` могут иметь любое значение. Как и в случае с `MPI_Scatter`, безопасными значениями аргументов в `root` являются `send_datatype = recv_datatype` и `send_count = recv_count`.
 
 ```c
 int MPI_Allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
@@ -598,8 +598,9 @@ B7Bo7yLteMS3AAAAAElFTkSuQmCC"></p>
 `MPI_PROD` |   Произведение
 `MPI_LAND` |   Логическое «и»
 
-Полный список предопределённых операций: https://www.open-mpi.org/doc/v1.8/man3/MPI_Reduce.3.php
-MPI опускает определение пользовательских операций для Reduce, см. документацию по [`MPI_Op_create`](https://www.open-mpi.org/doc/v1.8/man3/MPI_Op_create.3.php) и [`MPI_Op_free`](https://www.open-mpi.org/doc/v1.8/man3/MPI_Op_free.3.php)
+[Полный список предопределённых операций](https://www.open-mpi.org/doc/v1.8/man3/MPI_Reduce.3.php)
+
+MPI допускает определение пользовательских операций для Reduce, см. документацию по [`MPI_Op_create`](https://www.open-mpi.org/doc/v1.8/man3/MPI_Op_create.3.php) и [`MPI_Op_free`](https://www.open-mpi.org/doc/v1.8/man3/MPI_Op_free.3.php)
 
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfkAAADeCAMAAAAJtonsAAAA0lBMVEX///9tbnFYWFoAAAD/////
 //8LoUv///////////+YyJjtHCRjsm7K4ceanJ91dngmJifR0tT19fXw8PGnqazyZUj7yLTg4eJ9
