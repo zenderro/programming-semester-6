@@ -118,14 +118,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="co">// записать в matrix_buffer подряд</span>
   <span class="kw">for</span> (<span class="dt">int</span> col = <span class="dv">0</span>; col &lt; N; col += P) {
     MPI_Scatter(row_buffer+col, <span class="dv">1</span>, MPI_DOUBLE,
-	matrix_buffer, <span class="dv">1</span>, MPI_DOUBLE, 
-	<span class="dv">0</span>, MPI_COMM_WORLD);
+	matrix_buffer + row * cols + (col / P), <span class="dv">1</span>, 
+	MPI_DOUBLE, <span class="dv">0</span>, MPI_COMM_WORLD);
   }
 }</code></pre></div>
 </section>
 <section id="последовательный-вывод" class="slide level1">
 <h1>Последовательный вывод</h1>
 <p>Иногда для отладки требуется вывести на экран части матрицы последовательно для каждого процесса. Для этого можно использовать следующую схему:</p>
+<p>Внимание! В некоторых реализациях MPI вывод на экран может быть <a href="https://stackoverflow.com/a/5310506">некорректным</a>.</p>
 <div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#ifdef DEBUG </span><span class="co">// не использовать при компиляции без -DDEBUG</span>
 <span class="co">// size — количество процессов</span>
 <span class="co">// rank — номер процесса</span>
@@ -137,6 +138,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }
 <span class="ot">#endif</span></code></pre></div>
 <p>Компилировать с ключом <code>-DDEBUG</code>, чтобы код был активен</p>
+</section>
+<section id="последовательный-вывод-2" class="slide level1">
+<h1>Последовательный вывод</h1>
+<p>Правильнее всего реализовывать вывод матрицы одним процессом. Для этого необходимо "собрать" матрицу обратно со всех процессов.</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="kw">for</span> (<span class="dt">int</span> row=<span class="dv">0</span>; row &lt; N; row++) {
+  <span class="co">// Собрать из matrix_buffer строку в row_buffer</span>
+  <span class="kw">for</span> (<span class="dt">int</span> col = <span class="dv">0</span>; col &lt; N; col += P) {
+    MPI_Gather(matrix_buffer + row * cols + (col / P), 
+        <span class="dv">1</span>, MPI_DOUBLE, row_buffer+col, <span class="dv">1</span>, 
+	MPI_DOUBLE, <span class="dv">0</span>, MPI_COMM_WORLD);
+  }
+  
+  <span class="co">// Вывести на экран</span>
+  print_row(N, row, row_buffer);
+}</code></pre></div>
+<p>Здесь рассмотрен случай <span class="math inline">\(N ⋮ P\). Не забудьте переслать и вывести на экран оставшуюся часть.</span></p>
 </section>
 <section id="отладка-разбиения-матрицы" class="slide level1">
 <h1>Отладка разбиения матрицы</h1>
@@ -197,6 +214,7 @@ MPI_Wait(&amp;req, MPI_STATUS_IGNORE);</code></pre></div>
 <li>Задать верхнюю треугольную матрицу, реализовать обратный ход.</li>
 <li>Реализовать приведение к треугольному виду согласно своему методу :)</li>-->
 </ol>
+<p>Ссылка на задание по вводу/выводу матрицы: <a href="https://classroom.github.com/a/50QLjQGr">https://classroom.github.com/a/50QLjQGr</a></p>
 </section>
     </div>
   </div>
