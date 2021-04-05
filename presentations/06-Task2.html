@@ -88,10 +88,18 @@ img { width: 95%; border: none; }
 </style>
 <p><a href="https://zenderro.github.io/programming-semester-6/" class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
 </section>
+<section id="qt install" class="slide level1">
+<h1>Установка Qt</h1>
+<p>Есть несколько вариантов:</p>
+<ol>
+<li>Установка пакета в Ubuntu: sudo apt-get install qt5-default</li>
+<li>Установка старой версии через офлайн-установщик: <a href="https://www.qt.io/offline-installers">https://www.qt.io/offline-installers</a></li>
+<li>Установка через онлайн-установщик (нужна регистрация): <a href="https://www.qt.io/download-qt-installer">https://www.qt.io/download-qt-installer</a></li>
+</ol>
+<p>При установке провьте, что отмечен Qt Creator, он может открыть файл проекта <code>basic_graph.pro</code></p>
+</section>
 <section id="qt" class="slide level1">
 <h1>Qt</h1>
-<p>Скачать Qt 5: <a href="http://download.qt.io/official_releases/qt/5.14/5.14.2/" class="uri">http://download.qt.io/official_releases/qt/5.14/5.14.2/</a></p>
-<p>При установке проверить, что отмечен Qt Creator, он может открыть файл проекта <code>basic_graph.pro</code></p>
 <p>Проще компилировать в терминале. Вместо <code>Makefile</code> используется файл проекта:</p>
 <pre class="make"><code>HEADERS       = window.h
 SOURCES       = main.cpp \
@@ -169,7 +177,7 @@ action-&gt;setShortcut (<span class="ot">QString</span> (<span class="st">&quot;
   update ();
 }</code></pre></div>
 </section>
-<section id="ввод-с-клавиатуры-i" class="slide level1">
+<!--<section id="ввод-с-клавиатуры-i" class="slide level1">
 <h1>Ввод с клавиатуры I</h1>
 <h3 id="консольный">(консольный)</h3>
 <p>С использованием стандартных функций C:</p>
@@ -202,7 +210,7 @@ std::cin &gt;&gt; x;</code></pre></div>
 
 <span class="kw">if</span> (ok)
     doubleLabel-&gt;setText(<span class="ot">QString</span>(<span class="st">&quot;$%1&quot;</span>).arg(d));</code></pre></div>
-</section>
+</section>-->
 <section id="рисование-в-qpainter-i" class="slide level1">
 <h1>Рисование в QPainter I</h1>
 <h3 id="httpsdoc.qt.ioqt-5qpainter.html"><a href="https://doc.qt.io/qt-5/qpainter.html" class="uri">https://doc.qt.io/qt-5/qpainter.html</a></h3>
