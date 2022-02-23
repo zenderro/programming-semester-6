@@ -15,8 +15,8 @@ layout: default
 ## Распределение матрицы. Пересылка сообщений в рамках одного процесса
 [презентация — html](presentations/03-Matrix-Distribution.html)
 
-<!--## Пересылка сообщений в рамках одного процесса
-[презентация — html](presentations/04-MPI-send-to-self.html)-->
+## Использование групп и коммуникаторов
+[презентация — html](presentations/04-MPI-communicators.html)
 
 ## Постановка задачи линейной интерполяции. Базовые требования к программе.
 [презентация — html](presentations/05-Interpolation-Start.html)
