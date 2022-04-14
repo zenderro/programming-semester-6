@@ -77,6 +77,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2 id="задача-линейной-интерполяции">Задача линейной интерполяции</h2>
 <h2 id="интерполяционный-многочлен-лагранжа">Интерполяционный многочлен Лагранжа</h2>
 <h2 id="требования-к-программе-и-заготовка">Требования к программе и заготовка</h2>
+<h2 id="как-работать-с-заготовкой-на-qt">Как работать с заготовкой на Qt</h2>
+<h2 id="пункты-меню">Пункты меню</h2>
+<h2 id="рисование-с-использованием-qpainter">Рисование с использованием QPainter</h2>
 <style>
 .twocolumn {
   -moz-column-count: 2;
@@ -84,7 +87,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }
 .small { font-size: small !important; }
 .smaller { font-size: 0.8em !important; }
-
+img { width: 95%; border: none; }
 </style>
 <p><a href="https://zenderro.github.io/programming-semester-6/" class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
 </section>
@@ -94,7 +97,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Найти: <span class="math inline">\(Pf = \sum\limits^n_{i=1} α_i \, g_i\)</span>, такую, что <span class="math inline">\(λ_j[Pf] = λ_j[f]\)</span>.</p>
 <p><span class="math inline">\(\color{red}{λ_j(f)}\)</span>, <span class="math inline">\(\color{blue}{f}\)</span>, <span class="math inline">\(\color{green}{Pf}\)</span></p>
 <div style="zoom:1.5">
-<p><img src="tikz-images/a682a52fa900dc4e6a1d8a227bdf7a961f8515b6.svg" /></p>
+<p><img style="width:50%" src="tikz-images/a682a52fa900dc4e6a1d8a227bdf7a961f8515b6.svg" /></p>
 </div>
 </section>
 <section id="постановка-задачи-линейной-интерполяции" class="slide level1">
@@ -136,14 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="задача-ii" class="slide level1">
 <h1>Задача II</h1>
-<p>Требования ко второй задаче и заготовку программного кода можно скачать в дисплейных классах.<br />
-Для этого в терминале нужно запустить текстовый браузер <code>lynx</code>:<br />
-<code>lynx</code><br />
-Для сохранения файла на диск стрелками выделите ссылку на файл и нажмите D. Этот же файл доступен по ссылке: <a href="https://goo.gl/HCXKZV" class="uri">https://goo.gl/HCXKZV</a></p>
-<p>С 2020 г. требования изменились. Новые требования доступны по ссылке: <a href="https://drive.google.com/open?id=1BeRWOUpn4H6Kcx90jauG6nS1T_nrKBjx" class="uri">https://drive.google.com/open?id=1BeRWOUpn4H6Kcx90jauG6nS1T_nrKBjx</a></p>
-</section>
-<section id="задача-ii-1" class="slide level1">
-<h1>Задача II</h1>
+<p>Требования ко второй задаче доступны по <a href="require-graph-1D.pdf">этой ссылке</a></p>
 <ul>
 <li>даны два метода приближения функции одной переменной (из книги)</li>
 <li>реализовать их в виде отдельных модулей (<code>.c</code> или <code>.cpp</code>-файлов) с заданным интерфейсом:</li>
@@ -183,6 +179,139 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">qmake</span>
 <span class="kw">make</span></code></pre></div>
 <p>В дисплейных классах вместо <code>qmake</code> нужно использовать команду <code>qmake-qt5</code></p>
+</section>
+<section id="qt install" class="slide level1">
+<h1>Установка Qt</h1>
+<p>Есть несколько вариантов:</p>
+<ol>
+<li>Установка пакета в Ubuntu: sudo apt-get install qt5-default</li>
+<li>Установка старой версии через офлайн-установщик: <a href="https://www.qt.io/offline-installers">https://www.qt.io/offline-installers</a></li>
+<li>Установка через онлайн-установщик (нужна регистрация): <a href="https://www.qt.io/download-qt-installer">https://www.qt.io/download-qt-installer</a></li>
+</ol>
+<p>При установке провьте, что отмечен Qt Creator, он может открыть файл проекта <code>basic_graph.pro</code></p>
+</section>
+<section id="qt" class="slide level1">
+<h1>Qt</h1>
+<p>Проще компилировать в терминале. Вместо <code>Makefile</code> используется файл проекта:</p>
+<pre class="make"><code>HEADERS       = window.h
+SOURCES       = main.cpp \
+              window.cpp
+QT += widgets</code></pre>
+<p>Сборка (в каталоге с программой):</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">qmake</span>        <span class="co"># qmake-qt5 в дисплейных классах</span>
+             <span class="co"># Для отладки: qmake CONFIG+=debug</span>
+<span class="kw">make</span></code></pre></div>
+</section>
+<section id="c-на-уровне-c-с-классами-i" class="slide level1">
+<h1>C++ (на уровне «C с классами») I</h1>
+<h3 id="window.h"><code>window.h</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">class</span> Window : <span class="kw">public</span> <span class="ot">QWidget</span> {
+
+<span class="kw">private</span>: <span class="co">// внутренние поля</span>
+  <span class="dt">int</span> func_id, n; <span class="co">// переменная-член</span>
+  <span class="dt">double</span> *x, *f, *params; <span class="co">// параметры программы</span>
+  <span class="dt">int</span> prepare(); <span class="co">// функция подготовки для приближения</span>
+<span class="kw">public</span>: <span class="co">// общедоступные поля</span>
+  Window (<span class="ot">QWidget</span> *parent); <span class="co">// конструктор</span>
+  <span class="ot">QSize</span> minimumSizeHint () <span class="dt">const</span>; <span class="co">// функция-член</span>
+  <span class="co">// const = не меняет состояния переменных-членов класса</span>
+}</code></pre></div>
+</section>
+<section id="c-на-уровне-c-с-классами-ii" class="slide level1">
+<h1>C++ (на уровне «C с классами») II</h1>
+<h3 id="window.cpp"><code>window.cpp</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">static</span> <span class="co">// статическая функция = не член класса</span>
+<span class="dt">double</span> f_0 (<span class="dt">double</span> x) {
+<span class="co">// return f[0]; // ERROR - нет доступа к переменной-члену f</span>
+<span class="kw">return</span> x;
+}
+<span class="co">// Конструктор инициализирует переменные</span>
+Window::Window (<span class="ot">QWidget</span> *parent)
+: <span class="ot">QWidget</span> (parent)
+{
+  a = DEFAULT_A;
+  x = (<span class="dt">double</span>*)malloc(n * <span class="kw">sizeof</span>(<span class="dt">double</span>));
+}</code></pre></div>
+</section>
+<section id="c-на-уровне-c-с-классами-iii" class="slide level1">
+<h1>C++ (на уровне «C с классами») III</h1>
+<h3 id="window.cpp-1"><code>window.cpp</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// Функция-член</span>
+<span class="dt">void</span> Window::change_func ()
+{
+  <span class="co">// есть доступ к членам класса</span>
+  func_id = (func_id + <span class="dv">1</span>) % <span class="dv">2</span>;
+
+  <span class="co">// Warning: если определить локальную переменную</span>
+  <span class="co">// с именем, совпадающим с именем члена класса</span>
+  <span class="co">// использоваться будет локальная переменная</span>
+  <span class="dt">double</span> func_id = <span class="fl">-1.</span>; <span class="co">// не делайте так</span>
+
+  func_id == <span class="fl">-1.</span>;
+
+  <span class="co">// доступ к члену класса в этом случае:</span>
+  <span class="kw">this</span>-&gt;func_id
+}</code></pre></div>
+</section>
+<section id="меню-и-горячие-клавиши" class="slide level1">
+<h1>Меню и горячие клавиши</h1>
+<h3 id="window.h-1"><code>window.h</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">public</span> <span class="kw">slots</span>:  <span class="co">// специфично для Qt</span>
+<span class="dt">void</span> change_func (); <span class="co">// тип void, без аргументов</span></code></pre></div>
+<h3 id="main.cpp"><code>main.cpp</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">action = tool_bar-&gt;addAction (<span class="st">&quot;Change function&quot;</span>,
+  graph_area, <span class="kw">SLOT</span> (change_func ()));
+action-&gt;setShortcut (<span class="ot">QString</span> (<span class="st">&quot;Ctrl+C&quot;</span>));</code></pre></div>
+<h3 id="window.cpp-2"><code>window.cpp</code></h3>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// обработчик</span>
+<span class="dt">void</span> Window::change_func () {
+  func_id = (func_id + <span class="dv">1</span>) % <span class="dv">2</span>;
+  update ();
+}</code></pre></div>
+</section>
+<section id="рисование-в-qpainter-i" class="slide level1">
+<h1>Рисование в QPainter I</h1>
+<h3 id="httpsdoc.qt.ioqt-5qpainter.html"><a href="https://doc.qt.io/qt-5/qpainter.html" class="uri">https://doc.qt.io/qt-5/qpainter.html</a></h3>
+<p>Для перерисовки окна после обновления параметров вызывайте <code>update()</code>.</p>
+<p>Всё рисование выполняется в <code>Window::paintEvent</code>.</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">painter.setPen(<span class="st">&quot;black&quot;</span>); <span class="co">// установить цвет</span></code></pre></div>
+<p>Полный список цветов: <a href="https://doc.qt.io/qt-5/qcolor.html#setNamedColor" class="uri">https://doc.qt.io/qt-5/qcolor.html#setNamedColor</a></p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// линия от (x1, y1) до (x2, y2)</span>
+<span class="co">// в текущей системе координат</span>
+painter.drawLine(<span class="ot">QPointF</span>(x1, y1), <span class="ot">QPointF</span>(x2, y2));</code></pre></div>
+<p>Для рисования можно использовать количество точек <code>width()</code> или <code>width()/2</code>, меньше точек — хуже картинка.</p>
+</section>
+<section id="рисование-в-qpainter-ii" class="slide level1">
+<h1>Рисование в QPainter II</h1>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// сохранить систему координат</span>
+painter.save();
+
+<span class="co">// восстановить сохранённую систему</span>
+painter.restore();
+
+<span class="co">// написать текст</span>
+painter.drawText (<span class="co">/* x */</span> <span class="dv">0</span>, <span class="co">/* y */</span> <span class="dv">20</span>, <span class="st">&quot;Some text&quot;</span>);</code></pre></div>
+</section>
+<section id="замена-координат" class="slide level1">
+<h1>Замена координат</h1>
+<p>Исходная система координат</p>
+<p><img src="tikz-images/bd5e0a878649e21f9b5203519ee59e959a25927b.svg" /></p>
+</section>
+<section id="замена-координат-1" class="slide level1">
+<h1>Замена координат</h1>
+<p>масштабирование</p>
+<p><img src="tikz-images/11a89795266f148824c4a1f82e277f35028a7846.svg" /></p>
+</section>
+<section id="замена-координат-2" class="slide level1">
+<h1>Замена координат</h1>
+<p><code>painter.scale (width () / (b - a), -height () / (max_y - min_y));</code></p>
+<p><img src="tikz-images/72ea4ef8f4a9cef9475564663dd2bcd15cc64a5b.svg" /></p>
+</section>
+<section id="замена-координат-3" class="slide level1">
+<h1>Замена координат</h1>
+<p><code>painter.translate (-0.5 * (a + b), -0.5 * (min_y + max_y));</code><br />
+<code>(a, b)</code> и <code>(min_y, max_y)</code> задают ограничивающий прямоугольник <strong>отображаемой</strong> части графика</p>
+<p><img src="tikz-images/0afbbcc6d090712587f3a204e2f50d41834723da.svg" /></p>
 </section>
     </div>
   </div>

@@ -19,14 +19,15 @@ layout: default
 [презентация — html](presentations/04-MPI-communicators.html)
 
 ## Постановка задачи линейной интерполяции. Базовые требования к программе.
-[презентация — html](presentations/05-Interpolation-Start.html)
+[презентация — html](presentations/05-Interpolation-Start.html) [список методов — html](methods)
+[требования — pdf](presentations/require-graph-1D.pdf)
 
 ## Рисование в Qt5
 [презентация — html](presentations/06-Task2.html)
 
+## Задача 3
+— приближение функции двух переменных тензорными произведениями с использованием тех же [методов](methods), которые были выданы в задаче 2.
+[требования — pdf](presentations/require-graph-2D.pdf)
+
 ## OpenGL в Qt4
 [Работа с OpenGL на Qt4](http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1))
-
-## Задача 3
-— приближение функции двух переменных тензорными произведениями с использованием тех же методов, которые были выданы в задаче 2.
-
