@@ -217,7 +217,7 @@ Time: ...
 
 # Ссылки на задания
 
-Решение СЛУ: https://classroom.github.com/a/RmqITRrr
+Решение СЛУ: https://classroom.github.com/a/mLyqVBDI
 
-Обращение матрицы: https://classroom.github.com/a/ONSguT-N
+Обращение матрицы: https://classroom.github.com/a/36btkubK
 
