@@ -144,33 +144,36 @@ img { width: 95%; border: none; }
 <li>даны два метода приближения функции одной переменной (из книги)</li>
 <li>реализовать их в виде отдельных модулей (<code>.c</code> или <code>.cpp</code>-файлов) с заданным интерфейсом:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> method_init(<span class="dt">int</span> n, <span class="dt">double</span> a, <span class="dt">double</span> b, <span class="dt">double</span> *values, <span class="dt">double</span> *derivatives, <span class="dt">double</span> *state);
-<span class="dt">double</span> method_compute(<span class="dt">int</span> n, <span class="dt">double</span> x, <span class="dt">double</span> *state)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> method_init(<span class="dt">int</span> n, <span class="dt">double</span> *x, <span class="dt">double</span> *f, <span class="dt">double</span> *a);
+<span class="dt">double</span> method_compute(<span class="dt">double</span> x, <span class="dt">double</span> a, <span class="dt">double</span> b, <span class="dt">int</span> n, <span class="dt">double</span> *x_array, <span class="dt">double</span> *a_array);</code></pre></div>
 <ul>
 <li>реализовать графический интерфейс для тестирования методов приближения функций</li>
 </ul>
 </section>
 <section id="method_init" class="slide level1">
 <h1>method_init</h1>
-<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> method_init(<span class="dt">int</span> n, <span class="dt">double</span> a, <span class="dt">double</span> b, <span class="dt">double</span> *values, <span class="dt">double</span> *derivatives, <span class="dt">double</span> *state);</code></pre></div>
-<p>Первая функция вычисляет коэффициенты приближения и сохраняет их в массив <code>state</code>. Аргументы первой функции:</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">int</span> method_init(<span class="dt">int</span> n, <span class="dt">double</span> *x, <span class="dt">double</span> *f, <span class="dt">double</span> *a;</code></pre></div>
+<p>Первая функция вычисляет коэффициенты приближения и сохраняет их в массив <code>a_array</code>. Аргументы первой функции:</p>
 <ul>
 <li><code>n</code> — количество точек</li>
-<li><code>a, b</code> — границы отрезка приближения</li>
-<li><code>values</code> — массив значений в точках</li>
-<li><code>derivatives</code> — массив производных в точках</li>
-<li><code>state</code> — память для хранения коэффициентов приближения</li>
+<li><code>x</code> — массив x длины n с точками приближения</li>
+<li><code>f</code> — массив значений <span class="math inline">\(f\)</span> в точках приближения</li>
+<li><code>a</code> — память для хранения коэффициентов приближения</li>
 </ul>
+<p>Могут быть дополнительные вектора, если алгоритму требуется дополнительная память (например, производные первого или второго порядка).</p>
 </section>
 <section id="method_compute" class="slide level1">
 <h1>method_compute</h1>
-<p>Вторая функция вычисляет значение приближения <span class="math inline">\(Pf\)</span>, заданное в массиве <code>state</code> в точке <code>x</code>.</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">double</span> method_compute(<span class="dt">double</span> x, <span class="dt">double</span> a, <span class="dt">double</span> b, <span class="dt">int</span> n, <span class="dt">double</span> *x_array, <span class="dt">double</span> *a_array);</code></pre></div>
+<p>Вторая функция вычисляет значение приближения <span class="math inline">\(Pf\)</span>, заданное в массиве <code>a_array</code> в точке <code>x</code>.</p>
 <ul>
-<li><code>n</code> — количество точек, по которым выполнялось приближение</li>
 <li><code>x</code> — аргумент функции</li>
-<li><code>state</code> — массив коэффициентов приближения</li>
+<li><code>a, b</code> — отрезок <span class="math inline">\([a, b]\)</span></li>
+<li><code>n</code> — количество точек, по которым выполнялось приближение</li>
+<li><code>x_array</code> — массив точек приближения</li>
+<li><code>a_array</code> — массив коэффициентов приближения</li>
 </ul>
-<p>Тем, кто использует C++ может быть удобнее написать класс, который хранит <code>n</code> и <code>state</code> в полях. Тогда можно единообразно обрабатывать при рисовании исходную функцию и приближение (через базовый класс).</p>
+<p>Тем, кто использует C++ может быть удобнее написать класс, который хранит <code>n</code> и <code>a_array</code> в полях. Тогда можно единообразно обрабатывать при рисовании исходную функцию и приближение (через базовый класс).</p>
 </section>
 <section id="графический-интерфейс" class="slide level1">
 <h1>Графический интерфейс</h1>
