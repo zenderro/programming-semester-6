@@ -216,6 +216,7 @@ QT += widgets</code></pre>
   <span class="dt">int</span> prepare(); <span class="co">// функция подготовки для приближения</span>
 <span class="kw">public</span>: <span class="co">// общедоступные поля</span>
   Window (<span class="ot">QWidget</span> *parent); <span class="co">// конструктор</span>
+  ~Window (); <span class="co">// деструктор</span>
   <span class="ot">QSize</span> minimumSizeHint () <span class="dt">const</span>; <span class="co">// функция-член</span>
   <span class="co">// const = не меняет состояния переменных-членов класса</span>
 }</code></pre></div>
@@ -234,6 +235,10 @@ Window::Window (<span class="ot">QWidget</span> *parent)
 {
   a = DEFAULT_A;
   x = (<span class="dt">double</span>*)malloc(n * <span class="kw">sizeof</span>(<span class="dt">double</span>));
+}
+<span class="co">// Деструктор освобождает выделенную память</span>
+Window::~Window() {
+  free(x);
 }</code></pre></div>
 </section>
 <section id="c-на-уровне-c-с-классами-iii" class="slide level1">
