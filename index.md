@@ -24,7 +24,6 @@ layout: default
 
 ## Задача 3
 — приближение функции двух переменных тензорными произведениями с использованием тех же [методов](methods), которые были выданы в задаче 2.
+[презентация — html](presentations/07-Task3.html) 
 [требования — pdf](presentations/require-graph-2D.pdf)
-
-## OpenGL в Qt4
 [Работа с OpenGL на Qt4](http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1))

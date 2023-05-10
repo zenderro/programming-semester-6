@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>07-Task3</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<h3 id="приближение-функции-двух-переменных">Приближение функции двух
+переменных</h3>
+<h3 id="заготовка-к-третьей-задаче-opengl">Заготовка к третьей задаче,
+OpenGL</h3>
+<p><a href="mailto:andrey.zenzinov@math.msu.ru"
+class="email">andrey.zenzinov@math.msu.ru</a></p>
+<p><a href="https://zenderro.github.io/programming-semester-6/"
+class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
+<style>
+div.left-column {
+  width: 44%;
+  float: left;
+}
+div.right-column {
+  width: 44%;
+  float: right;
+}
+div.small {
+  font-size: 0.8em;
+}
+div.fullwidth img {
+  width: 100% !important;
+}
+</style>
+</section>
+<section id="интерполяция-тензорными-произведениями"
+class="slide level1">
+<h1>Интерполяция тензорными произведениями</h1>
+<p>Дано:</p>
+<ul>
+<li>исходная функция <span
+class="math inline"><em>f</em> : <em>Z</em> = <em>X</em> × <em>Y</em> → <em>ℝ</em></span>,
+<span
+class="math inline"><em>f</em> ∈ <em>F</em>(<em>Z</em>,<em>ℝ</em>)</span>;</li>
+<li>«базисы» <span
+class="math inline"><em>u</em><sub><em>i</em></sub> : <em>X</em> → <em>ℝ</em></span>,
+<span
+class="math inline"><em>u</em><sub><em>i</em></sub> ∈ <em>F</em>(<em>X</em>,<em>ℝ</em>)</span>,
+<span
+class="math inline"><em>v</em><sub><em>j</em></sub> : <em>Y</em> → <em>ℝ</em></span>,
+<span
+class="math inline"><em>v</em><sub><em>j</em></sub> ∈ <em>F</em>(<em>Y</em>,<em>ℝ</em>)</span>;</li>
+<li>условия интерполяции <span
+class="math inline"><em>λ</em><sub><em>i</em></sub> : <em>F</em>(<em>X</em>,<em>ℝ</em>) → <em>ℝ</em></span>,
+<span
+class="math inline"><em>μ</em><sub><em>j</em></sub> : <em>F</em>(<em>Y</em>,<em>ℝ</em>) → <em>ℝ</em></span>;</li>
+</ul>
+<p>Найти: <span class="math display">$$Pf = \sum_{i=1}^n\sum_{j=1}^m
+γ_{i,j}w_{i,j},$$</span> <span
+class="math inline"><em>ν</em><sub><em>i</em>, <em>j</em></sub>(<em>P</em><em>f</em>) = <em>ν</em><sub><em>i</em>, <em>j</em></sub>(<em>f</em>), <em>i</em> = 1, …, <em>n</em>, <em>j</em> = 1, …, <em>m</em></span></p>
+<p><span
+class="math inline"><em>w</em><sub><em>i</em>, <em>j</em></sub> = <em>u</em><sub><em>i</em></sub> ⊗ <em>v</em><sub><em>j</em></sub>, <em>т</em>.<em>е</em>.<em>w</em><sub><em>i</em>, <em>j</em></sub> = <em>u</em><sub><em>i</em></sub>(<em>x</em>)<em>v</em><sub><em>j</em></sub>(<em>y</em>)</span>,</p>
+<p><span
+class="math display"><em>n</em><em>u</em><sub><em>i</em>, <em>j</em></sub> = <em>λ</em><sub><em>i</em></sub> ⊗ <em>μ</em><sub><em>j</em></sub>, <em>т</em>.<em>е</em>.<em>n</em><em>u</em><sub><em>i</em>, <em>j</em></sub>(<em>f</em>) = <em>λ</em><sub><em>i</em></sub>(<em>μ</em><sub><em>j</em></sub>(<em>f</em><sub><em>x</em></sub>(<em>y</em>))) = <em>μ</em><sub><em>j</em></sub>(<em>λ</em><sub><em>i</em></sub>(<em>f</em><sub><em>y</em></sub>(<em>x</em>)))</span>,</p>
+<p><span
+class="math inline"><em>f</em><sub><em>x</em></sub>(<em>y</em>) = <em>f</em>(<em>x</em>,<em>y</em>) ∈ <em>F</em>(<em>Y</em>,<em>ℝ</em>), <em>f</em><sub><em>y</em></sub>(<em>x</em>) = <em>f</em>(<em>x</em>,<em>y</em>) ∈ <em>F</em>(<em>X</em>,<em>ℝ</em>)</span></p>
+</section>
+<section id="интерполяция-тензорными-произведениями-1"
+class="slide level1">
+<h1>Интерполяция тензорными произведениями</h1>
+<p>Теорема</p>
+<ol type="1">
+<li><span class="math inline"><em>u</em><sub><em>i</em></sub></span> -
+лин.независимы, <span
+class="math inline"><em>λ</em><sub><em>i</em></sub></span> -
+лин.независимы, матрица <span
+class="math inline"><em>A</em> = (<em>λ</em><sub><em>i</em></sub>(<em>u</em><sub><em>j</em></sub>))</span>
+- обратима;</li>
+<li><span class="math inline"><em>v</em><sub><em>j</em></sub></span> -
+лин.независимы, <span
+class="math inline"><em>μ</em><sub><em>j</em></sub></span> -
+лин.независимы, матрица <span
+class="math inline"><em>B</em> = (<em>μ</em><sub><em>j</em></sub>(<em>v</em><sub><em>i</em></sub>))</span>
+- обратима;</li>
+</ol>
+<p>Тогда:</p>
+<ol type="1">
+<li><span
+class="math inline"><em>w</em><sub><em>i</em><em>j</em></sub> = <em>u</em><sub><em>i</em></sub> ⊗ <em>v</em><sub><em>j</em></sub></span>
+- базис пространства <span
+class="math inline"><em>W</em> = <em>U</em> ⊗ <em>V</em>, <em>U</em> = ⟨<em>u</em><sub><em>i</em></sub>⟩, <em>V</em> = ⟨<em>v</em><sub><em>j</em></sub>⟩</span>;</li>
+<li>Задача линейной интерполяции корректна;</li>
+<li><span class="math display">$$Pf=\sum_{i=1}^n\sum_{j=1}^m
+γ_{i,j}w_{i,j}, Γ=(γ_{i,j})=A^{-1}((ν_{i,j}(f)))(B^t)^{-1}$$</span></li>
+</ol>
+</section>
+<section id="алгоритм-интерполяции-тензорными-произведениями"
+class="slide level1">
+<h1>Алгоритм интерполяции тензорными произведениями</h1>
+<p><span
+class="math inline"><em>Г</em> = <em>A</em><sup>−1</sup><em>F</em>(<em>B</em><sup><em>t</em></sup>)<sup>−1</sup>, <em>F</em> = [<em>f</em><sub>1</sub>,…,<em>f</em><sub><em>m</em></sub>], <em>f</em><sub><em>l</em></sub> = (<em>f</em><sub>1<em>l</em></sub>,…,<em>f</em><sub><em>n</em><em>l</em></sub>)<sup><em>t</em></sup>, <em>f</em><sub><em>k</em><em>l</em></sub> = <em>n</em><em>u</em><sub><em>k</em><em>l</em></sub>(<em>f</em>)</span></p>
+<ol type="1">
+<li><span
+class="math inline"><em>T</em> = <em>A</em><sup>−1</sup><em>F</em> = [<em>A</em><sup>−1</sup><em>f</em><sub>1</sub>,…,<em>A</em><sup>−1</sup><em>f</em><sub><em>m</em></sub>]</span>
+- вектора коэфф. интерполирующих ф-ий, построенных по <span
+class="math inline"><em>f</em><sub><em>k</em></sub></span>.</li>
+<li><span
+class="math inline"><em>Г</em> = <em>T</em>(<em>B</em><sup><em>t</em></sup>)<sup>−1</sup> = (<em>B</em><sup>−1</sup><em>T</em><sup><em>t</em></sup>)<sup><em>t</em></sup> = [<em>B</em><sup>−1</sup><em>t</em><sub>1</sub>,…,<em>B</em><sup>−1</sup><em>t</em><sub><em>n</em></sub>]<sup><em>t</em></sup></span>
+- вектора коэфф. интерполирующих ф-ий, построенных по <span
+class="math inline"><em>t</em><sub><em>l</em></sub></span>.</li>
+</ol>
+<p>Матрицы <span class="math inline"><em>T</em></span> и <span
+class="math inline"><em>Г</em></span> хранятся на месте <span
+class="math inline"><em>F</em></span>, поэтому</p>
+<ol type="1">
+<li><span class="math inline"><em>f</em><sub><em>k</em></sub></span>
+заменяется на <span
+class="math inline"><em>α</em><sub><em>k</em></sub></span> - коэфф.
+интерп. ф-ии <span class="math display">$$u=\sum_{i=1}^n α_{ki}u_i:
+λ_i(f_k)=f_{ik}=λ_i(u)$$</span></li>
+<li><span class="math inline"><em>t</em><sub><em>l</em></sub></span>
+заменяется на <span
+class="math inline"><em>β</em><sub><em>l</em></sub></span> - коэфф.
+интерп. ф-ии <span class="math display">$$v=\sum_{j=1}^m β_{lj}v_j:
+μ_j(t_l)=t_{jl}=μ_j(v)$$</span></li>
+</ol>
+</section>
+<section id="алгоритм-интерполяции-тензорными-произведениями-1"
+class="slide level1">
+<h1>Алгоритм интерполяции тензорными произведениями</h1>
+<ul>
+<li><code>interp_x(lu, n, alpha)</code>, <code>lu</code><span
+class="math inline"> = (<em>λ</em><sub><em>i</em></sub>(<em>u</em>))</span>,
+строит вектор коэфф. <code>alpha</code></li>
+<li><code>interp_y(mv, m, beta)</code>, <code>mv</code><span
+class="math inline"> = (<em>μ</em><sub><em>j</em></sub>(<em>v</em>))</span>,
+строит вектор коэфф. <code>beta</code></li>
+</ul>
+<p>Коэффициенты для <span
+class="math display">$$Pf(x,y)=\sum_{i=1}^n\sum_{j=1}^m γ_{i,j}
+u_i(x)v_j(y)$$</span> строятся по алгоритму:</p>
+<pre><code>// 1 шаг
+for i=1,n
+    interp_x(nf[i столбец], n, gamma[i столбец])</code></pre>
+<pre><code>// 2 шаг
+for j=1,m
+    interp_y(gamma[j строка], m, gamma[j строка])</code></pre>
+</section>
+<section id="программная-реализация" class="slide level1">
+<h1>Программная реализация</h1>
+<p>Как и во второй задаче для каждого метода нужно написать методы для
+расчёта коэффициентов <code>method_init</code> и вычисления значения
+приближающей функции <code>method_compute</code>.</p>
+<p>Графическая часть реализуется с помощью библиотеки OpenGL. В
+проектный файл .pro добавляется строка:</p>
+<pre><code>QT += opengl</code></pre>
+</section>
+<section id="требования-к-программе" class="slide level1">
+<h1>Требования к программе</h1>
+<p>Требования доступны по <a href="require-graph-2D.pdf">этой
+ссылке</a>. Обратите внимание на отличия от требований к задаче 2!</p>
+</section>
+<section id="заготовка-для-третьей-задачи" class="slide level1">
+<h1>Заготовка для третьей задачи</h1>
+<p>Подробное описание заготовки на OpenGL даётся в статье <a
+href="http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1)">Работа
+с OpenGL на Qt4</a>.</p>
+<p>Ссылка на задание: <a
+href="https://classroom.github.com/a/yM-6yqf2">https://classroom.github.com/a/yM-6yqf2</a>.
+Заготовка будет в созданном репозитории.</p>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>
