@@ -18,6 +18,8 @@ layout: default
 ## Использование групп и коммуникаторов
 [презентация — html](presentations/04-MPI-communicators.html)
 
+[Примеры MPI](https://parallel.ru/tech/tech_dev/MPI%26OpenMP/examples)
+
 ## Постановка задачи линейной интерполяции. Базовые требования к программе. Рисование в Qt5
 [презентация — html](presentations/05-Interpolation-Start.html) [список методов — html](methods)
 [требования — pdf](presentations/require-graph-1D.pdf)
