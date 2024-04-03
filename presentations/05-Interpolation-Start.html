@@ -102,8 +102,8 @@ img { width: 95%; border: none; }
 </section>
 <section id="постановка-задачи-линейной-интерполяции" class="slide level1">
 <h1>Постановка задачи линейной интерполяции</h1>
-<p><span class="math inline">\(G(X, Y)\)</span> — линейная оболочка <span class="math inline">\(\{g_i\}\)</span> в <span class="math inline">\(F(X,Y)\)</span></p>
-<p><span class="math inline">\(Λ(X, Y)\)</span> — линейная оболочка <span class="math inline">\(\{λ_j\}\)</span> в <span class="math inline">\(F^*(X, Y)\)</span></p>
+<p><span class="math inline">\(G(X, Y)\)</span> — линейная оболочка <span class="math inline">\(\{g_i\}\)</span> в <span class="math inline">\(F(X,Y)\)</span> размерности <span class="math inline">\(n\)</span></p>
+<p><span class="math inline">\(Λ(X, Y)\)</span> — линейная оболочка <span class="math inline">\(\{λ_j\}\)</span> в <span class="math inline">\(F^*(X, Y)\)</span>  размерности <span class="math inline">\(m\)</span></p>
 <p>Найти <span class="math inline">\(P : F(X, Y) → G(X, Y)\)</span> т.ч. <span class="math inline">\(λ(f)=λ(Pf) | λ ∈ Λ\)</span>.</p>
 <p>Теорема (с. 12). При линейно независимых <span class="math inline">\(g_i\)</span> и <span class="math inline">\(λ_j\)</span>:</p>
 <ol type="1">
@@ -116,13 +116,13 @@ img { width: 95%; border: none; }
 <section id="обусловленность-базиса" class="slide level1">
 <h1>Обусловленность базиса</h1>
 <p>Как и в случае с решением линейных систем, необходимо учитывать вычислительную погрешность.</p>
-<p>Число обусловленности базиса <span class="math inline">\(g_i\)</span>: <span class="math inline">\(\mathrm{cond}(g_i) = \dfrac{\min_α{K(α)}}{\max_α{K(α)}}\)</span></p>
+<p>Число обусловленности базиса <span class="math inline">\(g_i\)</span>: <span class="math inline">\(\mathrm{cond}(g_i) = \dfrac{\max_α{K(α)}}{\min_α{K(α)}}\)</span></p>
 <p><span class="math inline">\(K(α) = \dfrac{\| \sum α_i g_i \|_G}{\| α \|_{𝐑^n}}\)</span></p>
 </section>
 <section id="интерполяционный-многочлен-лагранжа-1" class="slide level1">
 <h1>Интерполяционный многочлен Лагранжа</h1>
 <p>Работаем с функциями одной переменной на отрезке <span class="math inline">\(f : 𝐑 ⊃ [a, b] → 𝐑\)</span><br />
-Для точек <span class="math inline">\(x_1 &lt; x_2 &lt; … &lt; x_n\)</span> и условий <span class="math inline">\(λ_j = f(x_j)\)</span>:</p>
+Для точек <span class="math inline">\(a = x_1 &lt; x_2 &lt; … &lt; x_n = b\)</span> и условий <span class="math inline">\(λ_j = f(x_j)\)</span>:</p>
 <p><span class="math inline">\(g_i(x) ≡ l_i(x) = \prod\limits_{j \neq i} \dfrac{x - x_j}{x_i - x_j}\)</span></p>
 <p><span class="math inline">\(λ_j(l_i) = δ_{ij}\)</span></p>
 <p><span class="math inline">\(L f = \sum f(x_i) l_i\)</span></p>
@@ -309,6 +309,7 @@ painter.drawText (<span class="co">/* x */</span> <span class="dv">0</span>, <sp
 <section id="замена-координат-1" class="slide level1">
 <h1>Замена координат</h1>
 <p>масштабирование</p>
+<p><code>painter.translate(0.5 * width(), 0.5 * height());</code></p>
 <p><img src="tikz-images/11a89795266f148824c4a1f82e277f35028a7846.svg" /></p>
 </section>
 <section id="замена-координат-2" class="slide level1">
@@ -324,7 +325,7 @@ painter.drawText (<span class="co">/* x */</span> <span class="dv">0</span>, <sp
 </section>
 <section id="ссылка на задачу" class="slide level1">
 <h1>Ссылка на задачу</h1>
-<p><a href="https://classroom.github.com/a/KV2fgOyK">https://classroom.github.com/a/KV2fgOyK</a></p>
+<p><a href="https://classroom.github.com/a/xoBT3Irj">https://classroom.github.com/a/xoBT3Irj</a></p>
 </section>
     </div>
   </div>
