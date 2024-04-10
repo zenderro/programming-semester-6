@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>08-Interpolation-cubic-polynoms</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<style type="text/css">
+div.sourceCode {
+  font-size: 1.2em;
+}
+section.slide > pre {
+  font-size: 0.8em;
+}
+
+.reveal pre {
+  width: 99%;
+}
+.reveal pre code {
+  font-size: 1.2em;
+}
+.yellow-box {
+  background-color: #afa;
+}
+.sparse-matrix img {
+  height: 450px;
+}
+</style>
+<h2 id="интерполяция-кусочно-кубическими-функциями">Интерполяция
+кусочно-кубическими функциями</h2>
+<h2 id="методы-интерполяции-кусочно-кубическими-функциями">Методы
+интерполяции кусочно-кубическими функциями</h2>
+<h2 id="способы-определения-недостающих-граничных-условий">Способы
+определения недостающих граничных условий</h2>
+<p><a href="mailto:andrey.zenzinov@math.msu.ru"
+class="email">andrey.zenzinov@math.msu.ru</a></p>
+<p><a href="https://zenderro.github.io/programming-semester-6/"
+class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
+</section>
+<section id="общая-схема" class="slide level1">
+<h1>Общая схема</h1>
+<p>Пусть заданы точки <span
+class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub> &lt; ... &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em></span>
+и значения <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
+этих точках.</p>
+<p>На каждом отрезке <span
+class="math inline">[<em>x</em><sub><em>i</em></sub>,<em>x</em><sub><em>i</em> + 1</sub>]</span>
+<span class="math inline"><em>P</em><em>f</em></span> - многочлен 3
+степени:</p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+P_i(x_i) = f(x_i),&amp; P_i(x_{i+1}) = f(x_{i+1}), \\
+P'_i(x_i) = d_i,&amp; P'_{i+1}(x_{i+1}) = d_{i+1} \\
+\end{cases}
+\end{equation}
+$$</span></p>
+<p><span class="math display"><em>d</em><sub><em>i</em></sub></span> -
+свободные параметры, выбор которых определяется конкретным методом</p>
+</section>
+<section id="общая-схема-1" class="slide level1">
+<h1>Общая схема</h1>
+<p><span
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>a</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup>(<em>x</em>−<em>x</em><sub><em>i</em> + 1</sub>)</span></p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+a_{1,i} = f(x_i) \\
+a_{2,i} = d_i \\
+a_{3,i} = \frac{f(x_i;x_{i+1}) - d_i}{x_{i+1} - x_i} \\
+a_{4,i} = \frac{d_i + d_{i+1} - 2f(x_i;x_{i+1})}{(x_{i+1} - x_i)^2} \\
+\end{cases}
+\end{equation}
+$$</span></p>
+<p><span
+class="math inline">$f(x_i;x_{i+1})=\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i}$</span>
+- разделенная разность</p>
+</section>
+<section id="общая-схема-2" class="slide level1">
+<h1>Общая схема</h1>
+<p><span
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+c_{1,i} = a_{1,i} = f(x_i) \\
+c_{2,i} = a_{2,i} = d_i \\
+c_{3,i} = a_{3,i} - a_{4,i}(x_{i+1}-x_i) =
+\frac{3f(x_i;x_{i+1})-2d_i-d_{i+1}}{x_{i+1}-x_i} \\
+c_{4,i} = a_{4,i} = \frac{d_i + d_{i+1} - 2f(x_i;x_{i+1})}{(x_{i+1} -
+x_i)^2} \\
+\end{cases}
+\end{equation}
+$$</span></p>
+</section>
+<section id="кусочная-интерполяция-кубическими-многочленами-эрмита"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами Эрмита</h1>
+<p><span
+class="math display"><em>d</em><sub><em>i</em></sub> = <em>f</em> ′(<em>x</em><sub><em>i</em></sub>)</span></p>
+<p>Свойства:</p>
+<ol type="1">
+<li><span class="math display">$$||f-Pf||_{C([a,b])}\le
+\frac{1}{4!}\frac{1}{2^4}h^4||f^{(4)}||_{C([a,b])}$$</span>, где <span
+class="math display"><em>h</em> = max<sub><em>i</em></sub>(<em>x</em><sub><em>i</em> + 1</sub>−<em>x</em><sub><em>i</em></sub>)</span></li>
+<li>Значения <span class="math inline"><em>P</em><em>f</em></span>
+зависят только от значений <span class="math inline"><em>f</em></span> и
+<span class="math inline"><em>f</em> ′</span> в точках <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span> и <span
+class="math inline"><em>x</em><sub><em>i</em> + 1</sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+</ol>
+</section>
+<section id="кусочная-интерполяция-кубическими-многочленами-бесселя"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами Бесселя</h1>
+<p><span
+class="math display"><em>P</em><sub>(<em>i</em>)</sub>(<em>x</em>) = <em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>) + (<em>x</em>−<em>x</em><sub><em>i</em> − 1</sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>;<em>x</em><sub><em>i</em></sub>) + (<em>x</em>−<em>x</em><sub><em>i</em> − 1</sub>)(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>;<em>x</em><sub><em>i</em></sub>;<em>x</em><sub><em>i</em> + 1</sub>)</span></p>
+<p><span class="math display">$$d_i = P'_{(i)}(x_i) =
+\frac{(x_{i+1}-x_i)f(x_{i-1};x_i) +
+(x_i-x_{i-1})f(x_i;x_{i+1})}{x_{i+1}-x_{i-1}}$$</span>, где <span
+class="math display"><em>i</em> = 2, 3, ..., <em>n</em> − 1</span></p>
+<p>В случае равномерного распределения точек <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>: <span
+class="math inline">$d_i=\frac{f(x_{i+1})-f(x_{i-1})}{2h}$</span>, где
+<span
+class="math display"><em>i</em> = 2, 3, ..., <em>n</em> − 1</span></p>
+<p>Недостающие значения <span
+class="math inline"><em>d</em><sub>1</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em></sub></span> определяются
+отдельно.</p>
+</section>
+<section id="кусочная-интерполяция-кубическими-многочленами-бесселя-1"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами Бесселя</h1>
+<p>Свойства:</p>
+<ol type="1">
+<li><span
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>,<em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>3</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(3)</sup>([<em>a</em>,<em>b</em>])</span></li>
+<li>Значения <span class="math inline"><em>P</em><em>f</em></span>
+зависят только от значений <span class="math inline"><em>f</em></span> в
+точках <span
+class="math inline"><em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+</ol>
+</section>
+<section id="кусочная-интерполяция-кубическими-многочленами-акимы"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами Акимы</h1>
+<p><span class="math display">$$
+d_i =
+\begin{cases}
+\frac{w_{i+1}f(x_{i-1};x_i)+w_{i-1}f(x_i;x_{i+1})}{w_{i+1}+w_{i-1}},
+&amp; если\  w^2_{i+1}+w^2_{i-1} \ne 0 \\
+\frac{(x_{i+1}-x_i)f(x_{i-1};x_i) + (x_i -
+x_{i-1})f(x_i;x_{i+1})}{x_{i+1}-x_{i-1}}, &amp; если\ w_{i+1}=w_{i-1}=0
+\end{cases} \\
+, где\ i=3, 4, ..., n-2 \\
+w_j = |f(x_j;x_{j+1})-f(x_{j-1};x_j)|
+$$</span></p>
+<p>Недостающие значения <span
+class="math inline"><em>d</em><sub>1</sub></span>, <span
+class="math inline"><em>d</em><sub>2</sub></span>, <span
+class="math inline"><em>d</em><sub><em>n</em> − 1</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em></sub></span> определяются
+отдельно.</p>
+</section>
+<section id="кусочная-интерполяция-кубическими-многочленами-акимы-1"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами Акимы</h1>
+<p>Свойства:</p>
+<ol type="1">
+<li><span
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>3</sub>,<em>x</em><sub><em>n</em> − 2</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span></li>
+<li>Значения <span class="math inline"><em>P</em><em>f</em></span>
+зависят только от значений <span class="math inline"><em>f</em></span> в
+точках <span
+class="math inline"><em>x</em><sub><em>i</em> − 2</sub>, <em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub>, <em>x</em><sub><em>i</em> + 3</sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span>
+<strong>не</strong> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>
+, хотя <span
+class="math inline"><em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+</ol>
+</section>
+<section
+id="кусочная-интерполяция-кубическими-многочленами-с-использованием-разделённых-разностей"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами с использованием
+разделённых разностей</h1>
+<p><span class="math display">$$
+d_i =
+\begin{cases}
+sign\ f(x_i;x_{i+1})\cdot min{{|f(x_{i-1};x_i)|, |f(x_i; x_{i+1})|}},
+&amp; если\ sign\ f(x_{i-1};x_i) = sign\ f(x_i;x_{i+1}) \\
+0 &amp; иначе
+\end{cases} \\, где\ i=2, 3, ..., n-1 \\
+$$</span></p>
+<p>Недостающие значения <span
+class="math inline"><em>d</em><sub>1</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em></sub></span> определяются
+отдельно.</p>
+</section>
+<section
+id="кусочная-интерполяция-кубическими-многочленами-с-использованием-разделённых-разностей-1"
+class="slide level1">
+<h1>Кусочная интерполяция кубическими многочленами с использованием
+разделённых разностей</h1>
+<p>Свойства:</p>
+<ol type="1">
+<li><span
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>,<em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span></li>
+<li>Значения <span class="math inline"><em>P</em><em>f</em></span>
+зависят только от значений <span class="math inline"><em>f</em></span> в
+точках <span
+class="math inline"><em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span>
+<strong>не</strong> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>,
+хотя <span
+class="math inline"><em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+</ol>
+</section>
+<section id="определение-недостающих-граничных-условий"
+class="slide level1">
+<h1>Определение недостающих граничных условий</h1>
+<ol type="1">
+<li>По известным значениям первой производной функции в граничных
+узлах</li>
+<li>По известным значениям второй производной функции в граничных
+узлах</li>
+<li>"Естественные граничные условия"</li>
+<li>Условие "отсутствия узла" в приграничных узлах</li>
+<li>Дополнительный узел в приграничных узлах</li>
+<li>Экстраполяция в приграничных узлах</li>
+</ol>
+</section>
+<section id="по-первой-производной" class="slide level1">
+<h1>По первой производной</h1>
+<p><span
+class="math display"><em>d</em><sub>1</sub> = <em>f</em> ′(<em>x</em><sub>1</sub>), <em>d</em><sub><em>n</em></sub> = <em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span></p>
+<p>Для метода Акимы дополнительно: <span
+class="math display"><em>d</em><sub>2</sub> = <em>f</em> ′(<em>x</em><sub>2</sub>), <em>d</em><sub><em>n</em> − 1</sub> = <em>f</em> ′(<em>x</em><sub><em>n</em> − 1</sub>)</span></p>
+</section>
+<section id="по-второй-производной" class="slide level1">
+<h1>По второй производной</h1>
+<p><span class="math display">$$\begin{cases}
+2d_1 + d_2 = 3f(x_1;x_2) - \frac{1}{2}f''(x_1)(x_2-x_1) \\
+d_{n-1} + 2d_n = 3f(x_{n-1};x_n) + \frac{1}{2}f''(x_n)(x_n-x_{n-1})\\
+\end{cases}$$</span></p>
+<p>В методе Акимы <span
+class="math inline"><em>d</em><sub>2</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em> − 1</sub></span>
+определяются по первой производной. В остальных методах эти параметры
+известны.</p>
+</section>
+<section id="естественные-граничные-условия" class="slide level1">
+<h1>Естественные граничные условия</h1>
+<p><span
+class="math display">(<em>P</em><em>f</em>)″(<em>x</em><sub>1</sub>) = 0, (<em>P</em><em>f</em>)″(<em>x</em><sub><em>n</em></sub>) = 0</span></p>
+<p>При <span
+class="math inline"><em>f</em> ″(<em>x</em><sub>1</sub>) = 0</span> и
+<span
+class="math inline"><em>f</em> ″(<em>x</em><sub><em>n</em></sub>) = 0</span>
+получаем <span class="math display">$$
+\begin{cases}
+2d_1+d_2 = 3f(x_1;x_2) \\
+d_{n-1}+2d_n = 3f(x_{n-1};x_n)\\
+\end{cases}
+$$</span></p>
+<p>В остальных случаях повышенная погрешность в граничных узлах.</p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах" class="slide level1">
+<h1>Отсутствие узла в приграничных узлах</h1>
+<p>Считаем, что <span
+class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>.</p>
+<p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
+интерполирует <span class="math inline"><em>f</em></span> на отрезке
+<span
+class="math inline">[<em>x</em><sub>1</sub>,<em>x</em><sub>3</sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>.
+<span class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> -
+на отрезке <span
+class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>,<em>x</em><sub><em>n</em></sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
+<p>Тогда <span
+class="math inline"><em>P</em> ′<sub>1</sub>(<em>x</em><sub>3</sub>) = <em>d</em><sub>3</sub>, <em>P</em> ′<sub><em>n</em> − 1</sub>(<em>x</em><sub><em>n</em> − 2</sub>) = <em>d</em><sub><em>n</em> − 2</sub></span></p>
+<p><span
+class="math inline"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub></span>
+и <span
+class="math inline"><em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>
+строятся как интерполяционные многочлены 3й степени.</p>
+</section>
+<section id="экстраполяция-в-приграничных-узлах" class="slide level1">
+<h1>Экстраполяция в приграничных узлах</h1>
+<p>Пусть <span
+class="math inline"><em>Q</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>k</em></sub></span>,
+а <span
+class="math inline"><em>R</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − <em>k</em> + 1</sub>, ..., <em>x</em><sub><em>n</em></sub>, <em>k</em> ≥ 3</span>.</p>
+<p><span class="math display">$$
+\begin{cases}
+(Pf)'(x_1) = Q'_k(x_1), &amp; (Pf)'(x_n) = R'_k(x_n) \\
+(Pf)''(x_1) = Q''_k(x_1), &amp; (Pf)''(x_n) = R''_k(x_n) \\
+\end{cases}
+$$</span></p>
+<p>Эти значения используются в методах вместо первой и второй
+производной в граничных точках.</p>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>
