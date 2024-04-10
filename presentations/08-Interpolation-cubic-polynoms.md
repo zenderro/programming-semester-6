@@ -135,7 +135,7 @@ $$
 $$
 d_i =
 \begin{cases}
-sign\ f(x_i;x_{i+1})\cdot min{{|f(x_{i-1};x_i)|, |f(x_i; x_{i+1})|}}, & если\ sign\ f(x_{i-1};x_i) = sign\ f(x_i;x_{i+1}) \\
+sign\ f(x_i;x_{i+1})\cdot min\{|f(x_{i-1};x_i)|, |f(x_i; x_{i+1})|\}, & если\ sign\ f(x_{i-1};x_i) = sign\ f(x_i;x_{i+1}) \\
 0 & иначе
 \end{cases} \\, где\ i=2, 3, ..., n-1 \\
 $$
