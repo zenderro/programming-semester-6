@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>09-Interpolation-splines</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/maxxk.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/highlight-github.css"/>
+  <link rel="stylesheet" href="additional.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="добрый-день-группа-312" class="slide level1">
+<h1>Добрый день, группа 312!</h1>
+<style type="text/css">
+div.sourceCode {
+  font-size: 1.2em;
+}
+section.slide > pre {
+  font-size: 0.8em;
+}
+
+.reveal pre {
+  width: 99%;
+}
+.reveal pre code {
+  font-size: 1.2em;
+}
+.yellow-box {
+  background-color: #afa;
+}
+.sparse-matrix img {
+  height: 450px;
+}
+</style>
+<h2 id="интерполяция-кубическими-сплайнами">Интерполяция кубическими
+сплайнами</h2>
+<h2 id="интерполяция-параболическими-сплайнами">Интерполяция
+параболическими сплайнами</h2>
+<p><a href="mailto:andrey.zenzinov@math.msu.ru"
+class="email">andrey.zenzinov@math.msu.ru</a></p>
+<p><a href="https://zenderro.github.io/programming-semester-6/"
+class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
+</section>
+<section id="сплайны" class="slide level1">
+<h1>Сплайны</h1>
+<p>Пусть заданы точки <span
+class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub> &lt; ... &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em></span>
+и значения <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
+этих точках.</p>
+<p><strong>Сплайн порядка <span
+class="math inline"><em>m</em></span></strong> - функция, которая на
+каждом отрезке <span
+class="math inline">[<em>x</em><sub><em>i</em></sub>,<em>x</em><sub><em>i</em> + <em>i</em></sub>]</span>,
+где <span
+class="math inline"><em>i</em> = 1, ..., <em>n</em>  − 1</span>,
+совпадает с многочленом <span
+class="math inline"><em>P</em><sub><em>i</em></sub></span> степени <span
+class="math inline"><em>m</em></span> и является функцией класса <span
+class="math inline"><em>C</em><sup>(<em>m</em>−1)</sup>([<em>x</em><sub>1</sub>,<em>x</em><sub><em>n</em></sub>])</span></p>
+<p>Последнее означает, что <span
+class="math inline"><em>P</em><sub><em>i</em> − 1</sub><sup>(<em>m</em>−1)</sup>(<em>x</em><sub><em>i</em></sub>) = <em>P</em><sub><em>i</em></sub><sup>(<em>m</em>−1)</sup>(<em>x</em><sub><em>i</em></sub>)</span>
+для <span
+class="math inline"><em>i</em> = 2, 3, ..., <em>n</em> − 1</span></p>
+</section>
+<section id="напоминание-приближение-кусочно-кубическими-функциями"
+class="slide level1">
+<h1>Напоминание: приближение кусочно-кубическими функциями</h1>
+<p><span
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+c_{1,i} = a_{1,i} = f(x_i) \\
+c_{2,i} = a_{2,i} = d_i \\
+c_{3,i} = a_{3,i} - a_{4,i}(x_{i+1}-x_i) =
+\frac{3f(x_i;x_{i+1})-2d_i-d_{i+1}}{x_{i+1}-x_i} \\
+c_{4,i} = a_{4,i} = \frac{d_i + d_{i+1} - 2f(x_i;x_{i+1})}{(x_{i+1} -
+x_i)^2} \\
+\end{cases}
+\end{equation}
+$$</span></p>
+</section>
+<section id="кубические-сплайны" class="slide level1">
+<h1>Кубические сплайны</h1>
+<p><span class="math inline"><em>m</em> = 3</span>, <span
+class="math inline"><em>P</em>″<sub><em>i</em> − 1</sub>(<em>x</em><sub><em>i</em></sub>) = <em>P</em>″<sub><em>i</em></sub>(<em>x</em><sub><em>i</em></sub>)</span></p>
+<p><span class="math display">$$
+\begin{cases}
+P''_{i-1}(x_i) = 2c_{3,i-1} + 6c_{4,i-1}(x_i-x_{i-1}) \\
+P''_i(x_i) = 2c_{3,i}
+\end{cases}
+$$</span></p>
+<p>Получаем систему из <span class="math inline"><em>n</em> − 2</span>
+линейных уравнений с <span class="math inline"><em>n</em></span>
+неизвестными <span
+class="math inline"><em>d</em><sub><em>i</em></sub></span></p>
+<p><span class="math display">$$
+(x_{i+1}-x_i)d_{i-1} + 2(x_{i+1}-x_{i-1})d_i + (x_i - x_{i-1})d_{i+1} =
+\\ 3f(x_{i-1};x_i)(x_{i+1} - x_i) + 3f(x_i;x_{i+1})(x_i-x_{i-1}) \\
+i = 2,3,...,n-1
+$$</span></p>
+<p>Требуется два дополнительных уравнения. Получается трёхдиагональная
+матрица с диагональным преобладанием, можно решать методом Гаусса без
+выбора главного элемента.</p>
+</section>
+<section id="кубические-сплайны-1" class="slide level1">
+<h1>Кубические сплайны</h1>
+<p>Свойства <span class="math inline"><em>P</em><em>f</em></span>:</p>
+<ol type="1">
+<li><span class="math inline"><em>P</em><em>f</em></span> зависит от
+значений <span class="math inline"><em>f</em></span> в каждой точке
+<span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+<li>Погрешность зависит от выбора дополнительных уравнений. От <span
+class="math inline"><em>O</em>(<em>h</em><sup>2</sup>)</span> до <span
+class="math inline"><em>O</em>(<em>h</em><sup>4</sup>)</span>.</li>
+</ol>
+</section>
+<section id="определение-недостающих-граничных-условий"
+class="slide level1">
+<h1>Определение недостающих граничных условий</h1>
+<ol type="1">
+<li>По известным значениям первой производной функции в граничных
+узлах</li>
+<li>По известным значениям второй производной функции в граничных
+узлах</li>
+<li>"Естественные граничные условия"</li>
+<li>Условие "отсутствия узла" в приграничных узлах</li>
+<li>Дополнительный узел в приграничных узлах</li>
+<li>Экстраполяция в приграничных узлах</li>
+</ol>
+</section>
+<section id="по-первой-производной" class="slide level1">
+<h1>По первой производной</h1>
+<p><span
+class="math display"><em>d</em><sub>1</sub> = <em>f</em> ′(<em>x</em><sub>1</sub>), <em>d</em><sub><em>n</em></sub> = <em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span></p>
+<p>Оценки погрешности:</p>
+<p><span class="math display">$$
+||f-Pf||_{C([a,b])} \lt \frac{5}{384}h^4||f^{(4)}||_{C([a,b])} \\
+||f'-(Pf)'||_{C([a,b])} \lt \frac{1}{24}h^3||f^{(4)}||_{C([a,b])}
+$$</span></p>
+</section>
+<section id="по-второй-производной" class="slide level1">
+<h1>По второй производной</h1>
+<p><span class="math display">$$\begin{cases}
+2d_1 + d_2 = 3f(x_1;x_2) - \frac{1}{2}f''(x_1)(x_2-x_1) \\
+d_{n-1} + 2d_n = 3f(x_{n-1};x_n) + \frac{1}{2}f''(x_n)(x_n-x_{n-1})\\
+\end{cases}$$</span></p>
+<p>Для сохранения трёхдиагональности эти уравнения нужно сделать первым
+и последним в системе</p>
+</section>
+<section id="естественные-граничные-условия" class="slide level1">
+<h1>Естественные граничные условия</h1>
+<p><span
+class="math display">(<em>P</em><em>f</em>)″(<em>x</em><sub>1</sub>) = 0, (<em>P</em><em>f</em>)″(<em>x</em><sub><em>n</em></sub>) = 0</span></p>
+<p>При <span
+class="math inline"><em>f</em> ″(<em>x</em><sub>1</sub>) = 0</span> и
+<span
+class="math inline"><em>f</em> ″(<em>x</em><sub><em>n</em></sub>) = 0</span>
+получаем <span class="math display">$$
+\begin{cases}
+2d_1+d_2 = 3f(x_1;x_2) \\
+d_{n-1}+2d_n = 3f(x_{n-1};x_n)\\
+\end{cases}
+$$</span></p>
+<p>В остальных случаях повышенная погрешность в граничных узлах. Для
+сплайнов это выражается в погрешности во всех точках отрезка.</p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах" class="slide level1">
+<h1>Отсутствие узла в приграничных узлах</h1>
+<p>Считаем, что <span
+class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>.</p>
+<p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
+интерполирует <span class="math inline"><em>f</em></span> на отрезке
+<span
+class="math inline">[<em>x</em><sub>1</sub>,<em>x</em><sub>3</sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>.
+<span class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> -
+на отрезке <span
+class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>,<em>x</em><sub><em>n</em></sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
+<p>Тогда <span
+class="math inline"><em>P</em> ′<sub>1</sub>(<em>x</em><sub>3</sub>) = <em>d</em><sub>3</sub>, <em>P</em> ′<sub><em>n</em> − 1</sub>(<em>x</em><sub><em>n</em> − 2</sub>) = <em>d</em><sub><em>n</em> − 2</sub></span></p>
+<p><span
+class="math inline"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub></span>
+и <span
+class="math inline"><em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>
+строятся как интерполяционные многочлены 3й степени.</p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах-1"
+class="slide level1">
+<h1>Отсутствие узла в приграничных узлах</h1>
+<p>Для получения недостающих уравнений возможны два подхода</p>
+<h2 id="подход-1">Подход 1</h2>
+<p>Из <span
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span>
+получаем</p>
+<p><span class="math display">$$
+P''_{i-1}(x_i)=P''_i(x_i) \\
+i = 3,4, ..., n-2
+$$</span></p>
+<p>Остальные 4 уравнения получаются из условий: <span
+class="math display">$$
+P''_1(x_3) \equiv P''_2(x_3) = P''_3(x_3) \\
+P''_{n-3}(x_{n-2}) = P''_{n-2}(x_{n-2}) \equiv P''_{n-1}(x_{n-2})
+$$</span></p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах-подход-2"
+class="slide level1">
+<h1>Отсутствие узла в приграничных узлах. Подход 2</h1>
+<p>Пусть <span
+class="math inline"><em>P</em><sub>1</sub>, <em>P</em><sub>2</sub>, ..., <em>P</em><sub><em>n</em> − 1</sub></span>
+задаются как раньше набором <span
+class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, ..., <em>d</em><sub><em>n</em></sub></span>.</p>
+<p><span class="math display">$$
+P'''_1(x_2) = P'''_2(x_2) \\
+P'''_{n-2}(x_{n-1}) = P'''_{n-1}(x_{n-1})
+$$</span></p>
+<p>Получаем <span
+class="math inline"><em>c</em><sub>4, 1</sub> = <em>c</em><sub>4, 2</sub>, <em>c</em><sub>4, <em>n</em> − 2</sub> = <em>c</em><sub>4, <em>n</em> − 1</sub></span></p>
+<p><span class="math display">$$
+\begin{cases}
+(x_3 - x_2)d_1 + (x_3 - x_1)d_2 = \\
+\ \ =
+\frac{f(x_1;x_2)(x_3-x_2)(2x_3+x_2-3x_1)+f(x_2;x_3)(x_2-x_1)^2}{x_3-x_1}
+\\
+(x_n-x_{n-2})d_{n-1} + (x_{n-1}-x_{n-2})d_n = \\
+\ \ = \frac{f(x_{n-2};x_{n-1})(x_n-x_{n-1})^2 + f(x_{n-1};
+x_n)(x_{n-1}-x_{n-2})(3x_n-x_{n-1}-2x_{n-2})}{x_n-x_{n-2}}
+\end{cases}
+$$</span></p>
+</section>
+<section id="дополнительный-узел-в-приграничных-узлах"
+class="slide level1">
+<h1>Дополнительный узел в приграничных узлах</h1>
+<p>Добавляются дополнительные точки <span
+class="math inline"><em>x</em><sub>0</sub> &lt; <em>x</em><sub>1</sub></span>
+и <span
+class="math inline"><em>x</em><sub><em>n</em> + 1</sub> &gt; <em>x</em><sub><em>n</em></sub></span>,
+а также значения <span
+class="math inline"><em>f</em>(<em>x</em><sub>0</sub>)</span> и <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>n</em> + 1</sub>)</span>.</p>
+<h2 id="подход-1-1">Подход 1</h2>
+<p>Два уравнения получаются из условия</p>
+<p><span class="math display">$$
+P_1(x_0) = f(x_0) \\
+P_{n-1}(x_{n+1}) = f(x_{n+1})
+$$</span></p>
+</section>
+<section id="дополнительный-узел-в-приграничных-узлах-подход-2"
+class="slide level1">
+<h1>Дополнительный узел в приграничных узлах. Подход 2</h1>
+<p><span class="math inline"><em>P</em><sub>1</sub></span> и <span
+class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> строятся
+как интерполяционные многочлены 3 степени по точкам <span
+class="math inline"><em>x</em><sub>0</sub>, <em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>
+и <span
+class="math inline"><em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub>, <em>x</em><sub><em>n</em> + 1</sub></span>
+соответственно:</p>
+<p><span class="math display">$$
+P_1(x_0)=f(x_0), P_1(x_1)=f(x_1), P_1(x_2)=f(x_2), P'_1(x_2)=d_2 \\
+P_{n-1}(x_{n-1})=f(x_{n-1}), P_{n-1}(x_n)=f(x_n), P_{n-1}(x_{n+1}) =
+f(x_{n+1}), P'_{n-1}(x_{n-1})=d_{n-1}
+$$</span></p>
+<p><span class="math inline"><em>d</em><sub>1</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em></sub></span> не
+участвуют.</p>
+<p><span class="math display">$$
+P''_{i-1}(x_i)=P''_i(x_i), \\
+i = 2,3, ..., n-1
+$$</span></p>
+<p>Уравнения для <span
+class="math inline"><em>i</em> = 3, 4, ..., <em>n</em> − 2</span>
+совпадают с уравнениями исходной системы, меняются уравнения для:</p>
+<p><span class="math display">$$
+P''_1(x_2)=P''_2(x_2) \\
+P''_{n-2}(x_{n-1})=P''_{n-1}(x_{n-1})
+$$</span></p>
+</section>
+<section id="дополнительный-узел-в-приграничных-узлах-подход-3"
+class="slide level1">
+<h1>Дополнительный узел в приграничных узлах. Подход 3</h1>
+<p>Приближения к <span
+class="math inline"><em>f</em> ′(<em>x</em><sub>1</sub>)</span> и <span
+class="math inline"><em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span>
+вычисляются так же, как для приближения кубическими многочленами
+Бесселя.</p>
+<p>Значения <span
+class="math inline"><em>f</em>(<em>x</em><sub>0</sub>)</span> и <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>n</em> + 1</sub>)</span>
+могут находиться из соображений периодичности, чётности и т.п.</p>
+<p>Если нет никакой доолнительной информации о <span
+class="math inline"><em>f</em></span>, то можно использовать линейную
+экстраполяцию:</p>
+<p><span class="math display">$$
+\begin{equation}
+x_0=x_1 - (x_2-x_1), f(x_0) = f(x_1) - (f(x_2)-f(x_1)) \\
+x_{n+1} = x_n + (x_n - x_{n-1}), f(x_{n+1}) = f(x_n) +
+(f(x_n)-f(x_{n-1}))
+\end{equation}
+$$</span></p>
+</section>
+<section id="экстраполяция-в-приграничных-узлах" class="slide level1">
+<h1>Экстраполяция в приграничных узлах</h1>
+<p>Пусть <span
+class="math inline"><em>Q</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>k</em></sub></span>,
+а <span
+class="math inline"><em>R</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − <em>k</em> + 1</sub>, ..., <em>x</em><sub><em>n</em></sub>, <em>k</em> ≥ 3</span>.</p>
+<p><span class="math display">$$
+\begin{cases}
+(Pf)'(x_1) = Q'_k(x_1), &amp; (Pf)'(x_n) = R'_k(x_n) \\
+(Pf)''(x_1) = Q''_k(x_1), &amp; (Pf)''(x_n) = R''_k(x_n) \\
+\end{cases}
+$$</span></p>
+</section>
+<section id="интерполяция-параболическими-многочленами"
+class="slide level1">
+<h1>Интерполяция параболическими многочленами</h1>
+<p>Пусть заданы точки <span
+class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub> &lt; ... &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em></span>
+и значения <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
+этих точках.</p>
+<p>Введём дополнительные точки <span
+class="math inline"><em>ξ</em><sub>1</sub>, ..., <em>ξ</em><sub><em>n</em> + 1</sub></span>:</p>
+<p><span
+class="math inline"><em>ξ</em><sub>1</sub> &lt; <em>a</em> = <em>x</em><sub>1</sub> &lt; <em>ξ</em><sub>2</sub> &lt; <em>x</em><sub>2</sub> &lt; <em>ξ</em><sub>3</sub> &lt; <em>x</em><sub>3</sub> &lt; ... &lt; <em>x</em><sub><em>n</em> − 1</sub> &lt; <em>ξ</em><sub><em>n</em></sub> &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em> &lt; <em>ξ</em><sub><em>n</em> + 1</sub></span></p>
+<p>Для простоты: <span class="math inline">$\xi_i =
+\frac{x_{i-1}+x_i}{2}$</span></p>
+<p>На каждом отрезке <span
+class="math inline">[<em>ξ</em><sub><em>i</em></sub>,<em>ξ</em><sub><em>i</em> + 1</sub>]</span>
+<span class="math inline"><em>P</em><em>f</em></span> - многочлен 3
+степени:</p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+P_i(x_i) = f(x_i), \\
+P_i(\xi_i) = v_i,&amp; P_i(\xi_{i+1}) = v_{i+1} \\
+i = 1, ..., n
+\end{cases}
+\end{equation}
+$$</span></p>
+<p><span class="math inline"><em>v</em><sub><em>i</em></sub></span> -
+свободные параметры</p>
+</section>
+<section id="интерполяция-параболическими-многочленами-1"
+class="slide level1">
+<h1>Интерполяция параболическими многочленами</h1>
+<p><span
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>)(<em>x</em>−<em>x</em><sub><em>i</em></sub>)</span></p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+a_{1,i} = v_i \\
+a_{2,i} = \frac{f(x_i)-v_i}{x_i-\xi_i} \\
+a_{3,i} =
+\frac{1}{\xi_{i+1}-\xi_i}(\frac{v_{i+1}-f(x_i)}{\xi_{i+1}-x_i}-\frac{f(x_i)-v_i}{x_i-\xi_i})
+\end{cases}
+\end{equation}
+$$</span></p>
+</section>
+<section id="интерполяция-параболическими-многочленами-2"
+class="slide level1">
+<h1>Интерполяция параболическими многочленами</h1>
+<p><span
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>)<sup>2</sup></span></p>
+<p><span class="math display">$$
+\begin{equation}
+\begin{cases}
+c_{1,i} = a_{1,i} = v_i \\
+c_{2,i} = a_{2,i} - (x_i-\xi_i)a_{3,i} = \frac{f(x_i)-v_i}{x_i-\xi_i}
+-  \frac{x_i-\xi_i}{\xi_{i+1}-\xi_i}(\frac{v_{i+1}-f(x_i)}{\xi_{i+1}-x_i}-\frac{f(x_i)-v_i}{x_i-\xi_i})\\
+c_{3,i} = a_{3,i} =
+\frac{1}{\xi_{i+1}-\xi_i}(\frac{v_{i+1}-f(x_i)}{\xi_{i+1}-x_i}-\frac{f(x_i)-v_i}{x_i-\xi_i})
+\end{cases}
+\end{equation}
+$$</span></p>
+</section>
+<section id="интерполяция-параболическими-сплайнами-1"
+class="slide level1">
+<h1>Интерполяция параболическими сплайнами</h1>
+<p><span
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>,<em>b</em>])</span>,
+т.е. <span
+class="math inline"><em>P</em>′<sub><em>i</em> − 1</sub>(<em>ξ</em><sub><em>i</em></sub>) = <em>P</em>′<sub><em>i</em></sub>(<em>ξ</em><sub><em>i</em></sub>), <em>i</em> = 2, 3, ..., <em>n</em></span></p>
+<p><span class="math display">$$
+\begin{cases}
+P'_{i-1}(\xi_i) = c_{2,i-1} + 2(\xi_i-\xi_{i-1})c_{3,i-1} \\
+P'_i(\xi_i) = c_{2,i}
+\end{cases}
+$$</span></p>
+<p>Получаем систему из <span class="math inline"><em>n</em> − 1</span>
+линейных уравнений для <span class="math inline"><em>n</em> + 1</span>
+неизвестных <span
+class="math inline"><em>v</em><sub><em>i</em></sub></span></p>
+<p><span class="math display">$$
+(\frac{1}{x_{i-1}-\xi_{i-1}}-\frac{1}{\xi_i-\xi_{i-1}})v_{i-1} +
+(\frac{1}{\xi_i-x_{i-1}} + \frac{1}{\xi_i-\xi_{i-1}} +
+\frac{1}{x_i-\xi_i} + \frac{1}{\xi_{i+1}-\xi_i})v_i + \\
+\ \ + (\frac{1}{\xi_{i+1}-x_i} - \frac{1}{\xi_{i+1}-\xi_i})v_{i+1} = \\
+\ \ = (\frac{1}{x_{i-1}-\xi_{i-1}} + \frac{1}{\xi_i -
+x_{i-1}})f(x_{i-1}) + (\frac{1}{x_i-\xi_i} +
+\frac{1}{\xi_{i+1}-x_i})f(x_i)
+$$</span></p>
+<p>Требуется два дополнительных уравнения. Получается трёхдиагональная
+матрица с диагональным преобладанием, можно решать методом Гаусса без
+выбора главного элемента.</p>
+</section>
+<section id="параболические-сплайны" class="slide level1">
+<h1>Параболические сплайны</h1>
+<p>Свойства <span class="math inline"><em>P</em><em>f</em></span>:</p>
+<ol type="1">
+<li><span class="math inline"><em>P</em><em>f</em></span> зависит от
+значений <span class="math inline"><em>f</em></span> в каждой точке
+<span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span></li>
+<li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
+class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+<li>Погрешность зависит от выбора дополнительных уравнений. От <span
+class="math inline"><em>O</em>(<em>h</em><sup>1</sup>)</span> до <span
+class="math inline"><em>O</em>(<em>h</em><sup>3</sup>)</span>.</li>
+</ol>
+</section>
+<section id="определение-недостающих-граничных-условий-1"
+class="slide level1">
+<h1>Определение недостающих граничных условий</h1>
+<ol type="1">
+<li>По известным значениям первой производной функции в граничных
+узлах</li>
+<li>По известным значениям второй производной функции в граничных
+узлах</li>
+<li>"Естественные граничные условия"</li>
+<li>Условие "отсутствия узла" в приграничных узлах</li>
+<li>Дополнительный узел в приграничных узлах</li>
+<li>Экстраполяция в приграничных узлах</li>
+</ol>
+</section>
+<section id="по-первой-производной-1" class="slide level1">
+<h1>По первой производной</h1>
+<h2 id="подход-1-2">Подход 1</h2>
+<p><span
+class="math inline"><em>P</em>′<sub>1</sub>(<em>x</em><sub>1</sub>) = <em>f</em> ′(<em>x</em><sub>1</sub>), <em>P</em>′<sub><em>n</em></sub>(<em>x</em><sub><em>n</em></sub>) = <em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span></p>
+<p><span class="math display">$$
+P'_i(x_i) = v_i(\frac{1}{\xi_{i+1} - \xi_i} - \frac{1}{x_i-\xi_i}) +
+v_{i+1}(\frac{1}{\xi_{i+1}-x_i} - \frac{1}{\xi_{i+1}-\xi_i}) + \\
+\ \ + f(x_i)(\frac{1}{x_i-\xi_i} - \frac{1}{\xi_{i+1}-x_i})
+$$</span></p>
+</section>
+<section id="по-первой-производной-подход-2" class="slide level1">
+<h1>По первой производной. Подход 2</h1>
+<p><span
+class="math inline"><em>ξ</em><sub><em>i</em></sub> = <em>x</em><sub><em>i</em></sub>, <em>ξ</em><sub><em>n</em> + 1</sub> = <em>x</em><sub><em>n</em></sub></span>,
+тогда <span
+class="math inline"><em>v</em><sub>1</sub>, <em>v</em><sub><em>n</em> + 1</sub></span>
+не входят в систему уравнений, <span
+class="math inline"><em>P</em><sub>1</sub>, <em>P</em><sub><em>n</em></sub></span>
+строятся по интерполяционной ф-ле Ньютона с картными узламми.</p>
+<p>В результате имеем недостающие уравнения</p>
+<p><span class="math display">$$
+\begin{cases}
+v_2(\frac{2}{\xi_2-x_1} + \frac{1}{x_2-\xi_2} + \frac{1}{\xi_3-\xi_2}) +
+v_3(\frac{1}{\xi_3-x_2} - \frac{1}{\xi_3-\xi_2}) = \\
+\ \ = f(x_1)\frac{2}{\xi_2-x_1} + f(x_2)(\frac{1}{x_2-\xi_2} +
+\frac{1}{\xi_3-x_2})+ f'(x_1) \\
+v_{n-1}(\frac{1}{x_{n-1}-\xi_{n-1}} - \frac{1}{\xi_n-\xi_{n-1}}) +
+v_n(\frac{1}{\xi_n-x_{n-1}} + \frac{1}{\xi_n-\xi_{n-1}} +
+\frac{2}{x_n-\xi_n}) = \\
+\ \ = f(x_{n-1})(\frac{1}{x_{n-1}-\xi_{n-1}} + \frac{1}{\xi_n-x_{n-1}})
++ f(x_n)\frac{2}{x_n-\xi_n} - f'(x_n)
+\end{cases}
+$$</span></p>
+</section>
+<section id="по-второй-производной-1" class="slide level1">
+<h1>По второй производной</h1>
+<p><span
+class="math inline"><em>P</em>″<sub>1</sub>(<em>x</em><sub>1</sub>) = <em>f</em> ″(<em>x</em><sub>1</sub>), <em>P</em>″<sub><em>n</em></sub>(<em>x</em><sub><em>n</em></sub>) = <em>f</em> ″(<em>x</em><sub><em>n</em></sub>)</span></p>
+<p>Подставляем это в</p>
+<p><span class="math display">$$
+P''_i(x_i) = 2c_{3,i} = \\
+\ \ = \frac{2}{\xi_{i+1}-\xi_i}(v_i\frac{1}{x_i-\xi_i} +
+v_{i+1}\frac{1}{\xi_{i+1}-x_i} - f(x_i)(\frac{1}{x_i-\xi_i} +
+\frac{1}{\xi_{i+1}-x_i}))
+$$</span></p>
+</section>
+<section id="естественные-граничные-условия-1" class="slide level1">
+<h1>Естественные граничные условия</h1>
+<p><span
+class="math display"><em>P</em>″<sub>1</sub>(<em>x</em><sub>1</sub>) = 0, <em>P</em>″<sub><em>n</em></sub>(<em>x</em><sub><em>n</em></sub>) = 0</span></p>
+<p>Подставляем это в формулу на предыдущем слайде</p>
+<p>В остальных случаях повышенная погрешность в граничных узлах. Для
+сплайнов это выражается в погрешности во всех точках отрезка.</p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах-2"
+class="slide level1">
+<h1>Отсутствие узла в приграничных узлах</h1>
+<p>Считаем, что <span
+class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <em>P</em><sub><em>n</em> − 1</sub> ≡ <em>P</em><sub><em>n</em></sub></span>.</p>
+<p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
+интерполирует <span class="math inline"><em>f</em></span> на отрезке
+<span
+class="math inline">[<em>ξ</em><sub>1</sub>,<em>ξ</em><sub>3</sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>.
+<span class="math inline"><em>P</em><sub><em>n</em></sub></span> - на
+отрезке <span
+class="math inline">[<em>ξ</em><sub><em>n</em> − 1</sub>,<em>ξ</em><sub><em>n</em> + 1</sub>]</span>
+по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
+<p>Тогда <span
+class="math inline"><em>P</em><sub>1</sub>(<em>ξ</em><sub>3</sub>) = <em>v</em><sub>3</sub>, <em>P</em><sub><em>n</em></sub>(<em>x</em><sub><em>n</em> − 1</sub>) = <em>v</em><sub><em>n</em> − 1</sub></span></p>
+<p><span
+class="math inline"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub></span>
+и <span
+class="math inline"><em>P</em><sub><em>n</em></sub> − 1 ≡ <em>P</em><sub><em>n</em></sub></span>
+строятся как интерполяционные многочлены 2й степени.</p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах-3"
+class="slide level1">
+<h1>Отсутствие узла в приграничных узлах</h1>
+<p>Для получения недостающих уравнений возможны два подхода</p>
+<h2 id="подход-1-3">Подход 1</h2>
+<p>Из <span
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>,<em>b</em>])</span>
+получаем</p>
+<p><span class="math display">$$
+P'_{i-1}(\xi_i)=P'_i(\xi_i) \\
+i = 3,4, ..., n-1
+$$</span></p>
+<p>Остальные 4 уравнения получаются из условий: <span
+class="math display">$$
+P'_1(\xi_3) \equiv P'_2(\xi_3) = P'_3(\xi_3) \\
+P'_{n-2}(\xi_{n-1}) = P'_{n-1}(\xi_{n-1}) \equiv P'_n(\xi_{n-1})
+$$</span></p>
+</section>
+<section id="отсутствие-узла-в-приграничных-узлах-подход-2-1"
+class="slide level1">
+<h1>Отсутствие узла в приграничных узлах. Подход 2</h1>
+<p>Пусть <span
+class="math inline"><em>P</em><sub>1</sub>, <em>P</em><sub>2</sub>, ..., <em>P</em><sub><em>n</em></sub></span>
+задаются как раньше набором <span
+class="math inline"><em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>, ..., <em>v</em><sub><em>n</em> + 1</sub></span>.</p>
+<p><span class="math display">$$
+P''_1(\xi_2) = P''_2(\xi_2) \\
+P''_{n-1}(\xi_n) = P''_n(\xi_n)
+$$</span></p>
+<p>Получаем <span
+class="math inline"><em>c</em><sub>3, 1</sub> = <em>c</em><sub>3, 2</sub>, <em>c</em><sub>3, <em>n</em> − 1</sub> = <em>c</em><sub>3, <em>n</em></sub></span></p>
+</section>
+<section id="дополнительный-узел-в-приграничных-узлах-1"
+class="slide level1">
+<h1>Дополнительный узел в приграничных узлах</h1>
+<p>Добавляются дополнительные точки <span
+class="math inline"><em>x</em><sub>0</sub> &lt; <em>x</em><sub>1</sub></span>
+и <span
+class="math inline"><em>x</em><sub><em>n</em> + 1</sub> &gt; <em>x</em><sub><em>n</em></sub></span>,
+а также значения <span
+class="math inline"><em>f</em>(<em>x</em><sub>0</sub>)</span> и <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>n</em> + 1</sub>)</span>.</p>
+<p>Тогда</p>
+<p><span class="math display">$$
+\xi_1 = x_0, \xi_{n+1} = x_{n+1} \\
+v_1 = f(\xi_1), v_{n+1} = f(\xi_{n+1})
+$$</span></p>
+</section>
+<section id="экстраполяция-в-приграничных-узлах-1" class="slide level1">
+<h1>Экстраполяция в приграничных узлах</h1>
+<p>Пусть <span
+class="math inline"><em>Q</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>k</em></sub></span>,
+а <span
+class="math inline"><em>R</em><sub><em>k</em></sub>(<em>x</em>)</span> -
+интерполяционный многочлен Лагранжа степени <span
+class="math inline"><em>k</em> − 1</span>, построенный по точкам <span
+class="math inline"><em>x</em><sub><em>n</em> − <em>k</em> + 1</sub>, ..., <em>x</em><sub><em>n</em></sub>, <em>k</em> ≥ 2</span>.</p>
+<p><span class="math display">$$
+\begin{cases}
+(Pf)'(x_1) = Q'_k(x_1), &amp; (Pf)'(x_n) = R'_k(x_n) \\
+(Pf)''(x_1) = Q''_k(x_1), &amp; (Pf)''(x_n) = R''_k(x_n) \\
+\end{cases}
+$$</span></p>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: true,                // Display the page number of the current slide
+        theme: 'maxxk', // available themes are in /css/theme
+        transition: 'slide', // default/cube/page/concave/zoom/linear/fade/none
+
+        math: {
+          config: 'TeX-AMS_HTML-full'
+        },
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          //{ src: 'math-katex/math-katex.js', async: true }
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+]});
+    </script>
+    </body>
+</html>

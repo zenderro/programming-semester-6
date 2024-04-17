@@ -24,8 +24,11 @@ layout: default
 [презентация — html](presentations/05-Interpolation-Start.html) [список методов — html](methods)
 [требования — pdf](presentations/require-graph-1D.pdf)
 
-## Методы Интерполяция кусочно-кубическими функциями
+## Методы интерполяции кусочно-кубическими функциями
 [презентация — html](presentations/08-Interpolation-cubic-polynoms.html)
+
+## Методы интерполяции сплайнами
+[презентация — html](presentations/09-Interpolation-splines.html)
 
 ## Задача 3
 — приближение функции двух переменных тензорными произведениями с использованием тех же [методов](methods), которые были выданы в задаче 2.
