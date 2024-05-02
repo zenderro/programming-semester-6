@@ -80,15 +80,17 @@ class="math inline"><em>λ</em><sub><em>i</em></sub> : <em>F</em>(<em>X</em>
 <span
 class="math inline"><em>μ</em><sub><em>j</em></sub> : <em>F</em>(<em>Y</em>,<em>ℝ</em>) → <em>ℝ</em></span>;</li>
 </ul>
-<p>Найти: <span class="math display">$$Pf = \sum_{i=1}^n\sum_{j=1}^m
-γ_{i,j}w_{i,j},$$</span> <span
-class="math inline"><em>ν</em><sub><em>i</em>, <em>j</em></sub>(<em>P</em><em>f</em>) = <em>ν</em><sub><em>i</em>, <em>j</em></sub>(<em>f</em>), <em>i</em> = 1, …, <em>n</em>, <em>j</em> = 1, …, <em>m</em></span></p>
-<p><span
-class="math inline"><em>w</em><sub><em>i</em>, <em>j</em></sub> = <em>u</em><sub><em>i</em></sub> ⊗ <em>v</em><sub><em>j</em></sub>, <em>т</em>.<em>е</em>.<em>w</em><sub><em>i</em>, <em>j</em></sub> = <em>u</em><sub><em>i</em></sub>(<em>x</em>)<em>v</em><sub><em>j</em></sub>(<em>y</em>)</span>,</p>
-<p><span
-class="math display"><em>n</em><em>u</em><sub><em>i</em>, <em>j</em></sub> = <em>λ</em><sub><em>i</em></sub> ⊗ <em>μ</em><sub><em>j</em></sub>, <em>т</em>.<em>е</em>.<em>n</em><em>u</em><sub><em>i</em>, <em>j</em></sub>(<em>f</em>) = <em>λ</em><sub><em>i</em></sub>(<em>μ</em><sub><em>j</em></sub>(<em>f</em><sub><em>x</em></sub>(<em>y</em>))) = <em>μ</em><sub><em>j</em></sub>(<em>λ</em><sub><em>i</em></sub>(<em>f</em><sub><em>y</em></sub>(<em>x</em>)))</span>,</p>
-<p><span
-class="math inline"><em>f</em><sub><em>x</em></sub>(<em>y</em>) = <em>f</em>(<em>x</em>,<em>y</em>) ∈ <em>F</em>(<em>Y</em>,<em>ℝ</em>), <em>f</em><sub><em>y</em></sub>(<em>x</em>) = <em>f</em>(<em>x</em>,<em>y</em>) ∈ <em>F</em>(<em>X</em>,<em>ℝ</em>)</span></p>
+<p>Найти: <span class="math display">$$
+Pf = \sum_{i=1}^n\sum_{j=1}^m γ_{i,j}w_{i,j}, \\
+ν_{i,j}(Pf)=ν_{i,j}(f), i=1,\dots,n, j=1,\dots,m \\
+\\
+w_{i,j}=u_i⊗v_j, т.е. w_{i,j}=u_i(x)v_j(y) \\
+\\
+\nu_{i,j}=λ_i⊗μ_j, т.е. \nu_{i,j}(f) = λ_i(μ_j(f_x(y))) =
+μ_j(λ_i(f_y(x))),\\
+\\
+f_x(y) = f(x,y)∈F(Y,ℝ), f_y(x)=f(x,y)∈F(X,ℝ)
+$$</span></p>
 </section>
 <section id="интерполяция-тензорными-произведениями-1"
 class="slide level1">
@@ -123,15 +125,17 @@ class="math inline"><em>W</em> = <em>U</em> ⊗ <em>V</em>, <em>U</em>
 class="slide level1">
 <h1>Алгоритм интерполяции тензорными произведениями</h1>
 <p><span
-class="math inline"><em>Г</em> = <em>A</em><sup>−1</sup><em>F</em>(<em>B</em><sup><em>t</em></sup>)<sup>−1</sup>, <em>F</em> = [<em>f</em><sub>1</sub>,…,<em>f</em><sub><em>m</em></sub>], <em>f</em><sub><em>l</em></sub> = (<em>f</em><sub>1<em>l</em></sub>,…,<em>f</em><sub><em>n</em><em>l</em></sub>)<sup><em>t</em></sup>, <em>f</em><sub><em>k</em><em>l</em></sub> = <em>n</em><em>u</em><sub><em>k</em><em>l</em></sub>(<em>f</em>)</span></p>
+class="math display"><em>Г</em> = <em>A</em><sup>−1</sup><em>F</em>(<em>B</em><sup><em>t</em></sup>)<sup>−1</sup>, <em>F</em> = [<em>f</em><sub>1</sub>,…,<em>f</em><sub><em>m</em></sub>], <em>f</em><sub><em>l</em></sub> = (<em>f</em><sub>1<em>l</em></sub>,…,<em>f</em><sub><em>n</em><em>l</em></sub>)<sup><em>t</em></sup>, <em>f</em><sub><em>k</em><em>l</em></sub> = <em>n</em><em>u</em><sub><em>k</em><em>l</em></sub>(<em>f</em>)</span></p>
 <ol type="1">
 <li><span
 class="math inline"><em>T</em> = <em>A</em><sup>−1</sup><em>F</em> = [<em>A</em><sup>−1</sup><em>f</em><sub>1</sub>,…,<em>A</em><sup>−1</sup><em>f</em><sub><em>m</em></sub>]</span>
-- вектора коэфф. интерполирующих ф-ий, построенных по <span
+- вектора коэфф. интерполирующих ф-ий <span
+class="math inline"><em>u</em></span>, построенных по <span
 class="math inline"><em>f</em><sub><em>k</em></sub></span>.</li>
 <li><span
 class="math inline"><em>Г</em> = <em>T</em>(<em>B</em><sup><em>t</em></sup>)<sup>−1</sup> = (<em>B</em><sup>−1</sup><em>T</em><sup><em>t</em></sup>)<sup><em>t</em></sup> = [<em>B</em><sup>−1</sup><em>t</em><sub>1</sub>,…,<em>B</em><sup>−1</sup><em>t</em><sub><em>n</em></sub>]<sup><em>t</em></sup></span>
-- вектора коэфф. интерполирующих ф-ий, построенных по <span
+- вектора коэфф. интерполирующих ф-ий <span
+class="math inline"><em>v</em></span>, построенных по <span
 class="math inline"><em>t</em><sub><em>l</em></sub></span>.</li>
 </ol>
 <p>Матрицы <span class="math inline"><em>T</em></span> и <span
@@ -191,7 +195,7 @@ for j=1,m
 href="http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1)">Работа
 с OpenGL на Qt4</a>.</p>
 <p>Ссылка на задание: <a
-href="https://classroom.github.com/a/yM-6yqf2">https://classroom.github.com/a/yM-6yqf2</a>.
+href="https://classroom.github.com/a/0yeb7CAx">https://classroom.github.com/a/0yeb7CAx</a>.
 Заготовка будет в созданном репозитории.</p>
 </section>
     </div>
