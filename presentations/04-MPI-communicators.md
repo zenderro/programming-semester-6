@@ -206,18 +206,10 @@ int MPI_Group_intersection(MPI_Group group1, MPI_Group group2, MPI_Group *newgro
 }
 ```
 
-Так же, как и в задаче с потоками, нужно будет добавить время работы каждого процесса отдельно и всего алгоритма в целом.
+Нужно выводить на экран время работы каждого процесса.
+
 ```
 Time of process 0: ...
 ...
 Time of process P: ...
-
-Time: ...
 ```
-
-# Ссылки на задания
-
-Решение СЛУ: https://classroom.github.com/a/HqThFLPt
-
-Обращение матрицы: https://classroom.github.com/a/E3PpnaiF
-
