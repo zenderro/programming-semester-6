@@ -73,7 +73,7 @@ class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><
 class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
 этих точках.</p>
 <p>На каждом отрезке <span
-class="math inline">[<em>x</em><sub><em>i</em></sub>,<em>x</em><sub><em>i</em> + 1</sub>]</span>
+class="math inline">[<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>]</span>
 <span class="math inline"><em>P</em><em>f</em></span> - многочлен 3
 степени:</p>
 <p><span class="math display">$$
@@ -90,7 +90,7 @@ $$</span></p>
 <section id="общая-схема-1" class="slide level1">
 <h1>Общая схема</h1>
 <p><span
-class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>a</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup>(<em>x</em>−<em>x</em><sub><em>i</em> + 1</sub>)</span></p>
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>a</em><sub>4, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup>(<em>x</em> − <em>x</em><sub><em>i</em> + 1</sub>)</span></p>
 <p><span class="math display">$$
 \begin{equation}
 \begin{cases}
@@ -108,7 +108,7 @@ class="math inline">$f(x_i;x_{i+1})=\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i}$</span
 <section id="общая-схема-2" class="slide level1">
 <h1>Общая схема</h1>
 <p><span
-class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
 <p><span class="math display">$$
 \begin{equation}
 \begin{cases}
@@ -131,21 +131,21 @@ class="math display"><em>d</em><sub><em>i</em></sub> = <em>f</em> ′(<em>x
 <ol type="1">
 <li><span class="math display">$$||f-Pf||_{C([a,b])}\le
 \frac{1}{4!}\frac{1}{2^4}h^4||f^{(4)}||_{C([a,b])}$$</span>, где <span
-class="math display"><em>h</em> = max<sub><em>i</em></sub>(<em>x</em><sub><em>i</em> + 1</sub>−<em>x</em><sub><em>i</em></sub>)</span></li>
+class="math display"><em>h</em> = max<sub><em>i</em></sub>(<em>x</em><sub><em>i</em> + 1</sub> − <em>x</em><sub><em>i</em></sub>)</span></li>
 <li>Значения <span class="math inline"><em>P</em><em>f</em></span>
 зависят только от значений <span class="math inline"><em>f</em></span> и
 <span class="math inline"><em>f</em> ′</span> в точках <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span> и <span
 class="math inline"><em>x</em><sub><em>i</em> + 1</sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 </ol>
 </section>
 <section id="кусочная-интерполяция-кубическими-многочленами-бесселя"
 class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами Бесселя</h1>
 <p><span
-class="math display"><em>P</em><sub>(<em>i</em>)</sub>(<em>x</em>) = <em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>) + (<em>x</em>−<em>x</em><sub><em>i</em> − 1</sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>;<em>x</em><sub><em>i</em></sub>) + (<em>x</em>−<em>x</em><sub><em>i</em> − 1</sub>)(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>;<em>x</em><sub><em>i</em></sub>;<em>x</em><sub><em>i</em> + 1</sub>)</span></p>
+class="math display"><em>P</em><sub>(<em>i</em>)</sub>(<em>x</em>) = <em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>) + (<em>x</em> − <em>x</em><sub><em>i</em> − 1</sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>; <em>x</em><sub><em>i</em></sub>) + (<em>x</em> − <em>x</em><sub><em>i</em> − 1</sub>)(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>; <em>x</em><sub><em>i</em></sub>; <em>x</em><sub><em>i</em> + 1</sub>)</span></p>
 <p><span class="math display">$$d_i = P'_{(i)}(x_i) =
 \frac{(x_{i+1}-x_i)f(x_{i-1};x_i) +
 (x_i-x_{i-1})f(x_i;x_{i+1})}{x_{i+1}-x_{i-1}}$$</span>, где <span
@@ -166,13 +166,13 @@ class="slide level1">
 <p>Свойства:</p>
 <ol type="1">
 <li><span
-class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>,<em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>3</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(3)</sup>([<em>a</em>,<em>b</em>])</span></li>
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>, <em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>3</sup>||<em>f</em>||<sub><em>C</em><sup>(3)</sup>([<em>a</em>, <em>b</em>])</sub></span></li>
 <li>Значения <span class="math inline"><em>P</em><em>f</em></span>
 зависят только от значений <span class="math inline"><em>f</em></span> в
 точках <span
 class="math inline"><em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 </ol>
 </section>
 <section id="кусочная-интерполяция-кубическими-многочленами-акимы"
@@ -202,14 +202,14 @@ class="slide level1">
 <p>Свойства:</p>
 <ol type="1">
 <li><span
-class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>3</sub>,<em>x</em><sub><em>n</em> − 2</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span></li>
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>3</sub>, <em>x</em><sub><em>n</em> − 2</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em><sup>(2)</sup>([<em>a</em>, <em>b</em>])</sub></span></li>
 <li>Значения <span class="math inline"><em>P</em><em>f</em></span>
 зависят только от значений <span class="math inline"><em>f</em></span> в
 точках <span
 class="math inline"><em>x</em><sub><em>i</em> − 2</sub>, <em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub>, <em>x</em><sub><em>i</em> + 3</sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span>
 <strong>не</strong> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>
 , хотя <span
 class="math inline"><em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 </ol>
@@ -240,14 +240,14 @@ class="slide level1">
 <p>Свойства:</p>
 <ol type="1">
 <li><span
-class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>,<em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span></li>
+class="math display">||<em>f</em> − <em>P</em><em>f</em>||<sub><em>C</em>([<em>x</em><sub>2</sub>, <em>x</em><sub><em>n</em> − 1</sub>])</sub> ≤ <em>c</em><em>o</em><em>n</em><em>s</em><em>t</em> ⋅ <em>h</em><sup>2</sup>||<em>f</em>||<sub><em>C</em></sub><sup>(2)</sup>([<em>a</em>, <em>b</em>])</span></li>
 <li>Значения <span class="math inline"><em>P</em><em>f</em></span>
 зависят только от значений <span class="math inline"><em>f</em></span> в
 точках <span
 class="math inline"><em>x</em><sub><em>i</em> − 1</sub>, <em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>, <em>x</em><sub><em>i</em> + 2</sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span>
 <strong>не</strong> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>,
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) ≠ <em>P</em><em>f</em> + <em>P</em><em>g</em></span>,
 хотя <span
 class="math inline"><em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 </ol>
@@ -308,12 +308,12 @@ class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <e
 <p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
 интерполирует <span class="math inline"><em>f</em></span> на отрезке
 <span
-class="math inline">[<em>x</em><sub>1</sub>,<em>x</em><sub>3</sub>]</span>
+class="math inline">[<em>x</em><sub>1</sub>, <em>x</em><sub>3</sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>.
 <span class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> -
 на отрезке <span
-class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>,<em>x</em><sub><em>n</em></sub>]</span>
+class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em></sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
 <p>Тогда <span
