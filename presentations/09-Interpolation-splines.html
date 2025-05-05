@@ -73,15 +73,15 @@ class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
 <p><strong>Сплайн порядка <span
 class="math inline"><em>m</em></span></strong> - функция, которая на
 каждом отрезке <span
-class="math inline">[<em>x</em><sub><em>i</em></sub>,<em>x</em><sub><em>i</em> + <em>i</em></sub>]</span>,
+class="math inline">[<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + <em>i</em></sub>]</span>,
 где <span
 class="math inline"><em>i</em> = 1, ..., <em>n</em>  − 1</span>,
 совпадает с многочленом <span
 class="math inline"><em>P</em><sub><em>i</em></sub></span> степени <span
 class="math inline"><em>m</em></span> и является функцией класса <span
-class="math inline"><em>C</em><sup>(<em>m</em>−1)</sup>([<em>x</em><sub>1</sub>,<em>x</em><sub><em>n</em></sub>])</span></p>
+class="math inline"><em>C</em><sup>(<em>m</em> − 1)</sup>([<em>x</em><sub>1</sub>, <em>x</em><sub><em>n</em></sub>])</span></p>
 <p>Последнее означает, что <span
-class="math inline"><em>P</em><sub><em>i</em> − 1</sub><sup>(<em>m</em>−1)</sup>(<em>x</em><sub><em>i</em></sub>) = <em>P</em><sub><em>i</em></sub><sup>(<em>m</em>−1)</sup>(<em>x</em><sub><em>i</em></sub>)</span>
+class="math inline"><em>P</em><sub><em>i</em> − 1</sub><sup>(<em>m</em> − 1)</sup>(<em>x</em><sub><em>i</em></sub>) = <em>P</em><sub><em>i</em></sub><sup>(<em>m</em> − 1)</sup>(<em>x</em><sub><em>i</em></sub>)</span>
 для <span
 class="math inline"><em>i</em> = 2, 3, ..., <em>n</em> − 1</span></p>
 </section>
@@ -89,7 +89,7 @@ class="math inline"><em>i</em> = 2, 3, ..., <em>n</em> − 1</span
 class="slide level1">
 <h1>Напоминание: приближение кусочно-кубическими функциями</h1>
 <p><span
-class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em>−<em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
 <p><span class="math display">$$
 \begin{equation}
 \begin{cases}
@@ -135,7 +135,7 @@ $$</span></p>
 <span
 class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 <li>Погрешность зависит от выбора дополнительных уравнений. От <span
 class="math inline"><em>O</em>(<em>h</em><sup>2</sup>)</span> до <span
 class="math inline"><em>O</em>(<em>h</em><sup>4</sup>)</span>.</li>
@@ -198,12 +198,12 @@ class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <e
 <p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
 интерполирует <span class="math inline"><em>f</em></span> на отрезке
 <span
-class="math inline">[<em>x</em><sub>1</sub>,<em>x</em><sub>3</sub>]</span>
+class="math inline">[<em>x</em><sub>1</sub>, <em>x</em><sub>3</sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, <em>x</em><sub>3</sub></span>.
 <span class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> -
 на отрезке <span
-class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>,<em>x</em><sub><em>n</em></sub>]</span>
+class="math inline">[<em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em></sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub><em>n</em> − 2</sub>, <em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
 <p>Тогда <span
@@ -220,7 +220,7 @@ class="slide level1">
 <p>Для получения недостающих уравнений возможны два подхода</p>
 <h2 id="подход-1">Подход 1</h2>
 <p>Из <span
-class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(2)</sup>([<em>a</em>,<em>b</em>])</span>
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(2)</sup>([<em>a</em>, <em>b</em>])</span>
 получаем</p>
 <p><span class="math display">$$
 P''_{i-1}(x_i)=P''_i(x_i) \\
@@ -239,6 +239,7 @@ class="slide level1">
 class="math inline"><em>P</em><sub>1</sub>, <em>P</em><sub>2</sub>, ..., <em>P</em><sub><em>n</em> − 1</sub></span>
 задаются как раньше набором <span
 class="math inline"><em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, ..., <em>d</em><sub><em>n</em></sub></span>.</p>
+<p>Дополнительные условия:</p>
 <p><span class="math display">$$
 P'''_1(x_2) = P'''_2(x_2) \\
 P'''_{n-2}(x_{n-1}) = P'''_{n-1}(x_{n-1})
@@ -361,7 +362,7 @@ class="math inline"><em>ξ</em><sub>1</sub> &lt; <em>a</em> = <em>x</em>
 <p>Для простоты: <span class="math inline">$\xi_i =
 \frac{x_{i-1}+x_i}{2}$</span></p>
 <p>На каждом отрезке <span
-class="math inline">[<em>ξ</em><sub><em>i</em></sub>,<em>ξ</em><sub><em>i</em> + 1</sub>]</span>
+class="math inline">[<em>ξ</em><sub><em>i</em></sub>, <em>ξ</em><sub><em>i</em> + 1</sub>]</span>
 <span class="math inline"><em>P</em><em>f</em></span> - многочлен 2
 степени:</p>
 <p><span class="math display">$$
@@ -380,7 +381,7 @@ $$</span></p>
 class="slide level1">
 <h1>Интерполяция параболическими многочленами</h1>
 <p><span
-class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>)(<em>x</em>−<em>x</em><sub><em>i</em></sub>)</span></p>
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>ξ</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>ξ</em><sub><em>i</em></sub>)(<em>x</em> − <em>x</em><sub><em>i</em></sub>)</span></p>
 <p><span class="math display">$$
 \begin{equation}
 \begin{cases}
@@ -396,7 +397,7 @@ $$</span></p>
 class="slide level1">
 <h1>Интерполяция параболическими многочленами</h1>
 <p><span
-class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em>−<em>ξ</em><sub><em>i</em></sub>)<sup>2</sup></span></p>
+class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>ξ</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>ξ</em><sub><em>i</em></sub>)<sup>2</sup></span></p>
 <p><span class="math display">$$
 \begin{equation}
 \begin{cases}
@@ -413,7 +414,7 @@ $$</span></p>
 class="slide level1">
 <h1>Интерполяция параболическими сплайнами</h1>
 <p><span
-class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>,<em>b</em>])</span>,
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>, <em>b</em>])</span>,
 т.е. <span
 class="math inline"><em>P</em>′<sub><em>i</em> − 1</sub>(<em>ξ</em><sub><em>i</em></sub>) = <em>P</em>′<sub><em>i</em></sub>(<em>ξ</em><sub><em>i</em></sub>), <em>i</em> = 2, 3, ..., <em>n</em></span></p>
 <p><span class="math display">$$
@@ -448,7 +449,7 @@ $$</span></p>
 <span
 class="math inline"><em>x</em><sub>1</sub>, ..., <em>x</em><sub><em>n</em></sub></span></li>
 <li><span class="math inline"><em>P</em><em>f</em></span> линейно. <span
-class="math inline"><em>P</em>(<em>f</em>+<em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
+class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>f</em> + <em>P</em><em>g</em>, <em>P</em>(<em>α</em><em>f</em>) = <em>α</em><em>P</em><em>f</em></span></li>
 <li>Погрешность зависит от выбора дополнительных уравнений. От <span
 class="math inline"><em>O</em>(<em>h</em><sup>1</sup>)</span> до <span
 class="math inline"><em>O</em>(<em>h</em><sup>3</sup>)</span>.</li>
@@ -520,8 +521,12 @@ $$</span></p>
 <p><span
 class="math display"><em>P</em>″<sub>1</sub>(<em>x</em><sub>1</sub>) = 0, <em>P</em>″<sub><em>n</em></sub>(<em>x</em><sub><em>n</em></sub>) = 0</span></p>
 <p>Подставляем это в формулу на предыдущем слайде</p>
-<p>В остальных случаях повышенная погрешность в граничных узлах. Для
-сплайнов это выражается в погрешности во всех точках отрезка.</p>
+<p>Если <span
+class="math inline"><em>f</em> ″(<em>x</em><sub>1</sub>) ≠ 0</span> и
+<span
+class="math inline"><em>f</em> ″(<em>x</em><sub><em>n</em></sub>) ≠ 0</span>,
+то возникает повышенная погрешность в граничных узлах. Для сплайнов это
+выражается в погрешности во всех точках отрезка.</p>
 </section>
 <section id="отсутствие-узла-в-приграничных-узлах-2"
 class="slide level1">
@@ -531,12 +536,12 @@ class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <e
 <p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
 интерполирует <span class="math inline"><em>f</em></span> на отрезке
 <span
-class="math inline">[<em>ξ</em><sub>1</sub>,<em>ξ</em><sub>3</sub>]</span>
+class="math inline">[<em>ξ</em><sub>1</sub>, <em>ξ</em><sub>3</sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>.
 <span class="math inline"><em>P</em><sub><em>n</em></sub></span> - на
 отрезке <span
-class="math inline">[<em>ξ</em><sub><em>n</em> − 1</sub>,<em>ξ</em><sub><em>n</em> + 1</sub>]</span>
+class="math inline">[<em>ξ</em><sub><em>n</em> − 1</sub>, <em>ξ</em><sub><em>n</em> + 1</sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
 <p>Тогда <span
@@ -553,7 +558,7 @@ class="slide level1">
 <p>Для получения недостающих уравнений возможны два подхода</p>
 <h2 id="подход-1-3">Подход 1</h2>
 <p>Из <span
-class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>,<em>b</em>])</span>
+class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(1)</sup>([<em>a</em>, <em>b</em>])</span>
 получаем</p>
 <p><span class="math display">$$
 P'_{i-1}(\xi_i)=P'_i(\xi_i) \\
