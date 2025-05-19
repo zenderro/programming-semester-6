@@ -107,4 +107,4 @@ QT += opengl
 
 Подробное описание заготовки на OpenGL даётся в статье [Работа с OpenGL на Qt4](http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1)).
 
-Ссылка на задание: [https://classroom.github.com/a/0yeb7CAx](https://classroom.github.com/a/0yeb7CAx). Заготовка будет в созданном репозитории.
+Ссылка на задание: [https://classroom.github.com/a/qiQ4jZRJ](https://classroom.github.com/a/qiQ4jZRJ). Заготовка будет в созданном репозитории.
