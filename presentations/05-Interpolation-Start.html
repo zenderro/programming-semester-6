@@ -127,15 +127,15 @@ img { width: 95%; border: none; }
 <p><span class="math inline">\(λ_j(l_i) = δ_{ij}\)</span></p>
 <p><span class="math inline">\(L f = \sum f(x_i) l_i\)</span></p>
 <p>Число обусловленности: <span class="math inline">\(κ ⩾ C e^{n/2}\)</span></p>
-<p>Число операций: <span class="math inline">\(2n^2 + O(n)\)</span></p>
+<p>Число операций: <span class="math inline">\(4n^2 + O(n)\)</span></p>
 </section>
 <section id="наивная-реализация" class="slide level1">
 <h1>Наивная реализация</h1>
 <ol type="1">
-<li><span class="math inline">\(Y_i = \dfrac{f(x_i)}{\prod\limits_{j \neq i} (x_i - x_j)}\qquad\)</span> <span class="math inline">\(2(n^2 - n)\)</span> операций</li>
+<li><span class="math inline">\(Y_i = \dfrac{f(x_i)}{\prod\limits_{j \neq i} (x_i - x_j)}\qquad\)</span> <span class="math inline">\(2n(n - 1)\)</span> операций</li>
 <li><span class="math inline">\(φ(x) = \prod_i (x - x_i) \qquad\)</span> <span class="math inline">\(n + n - 1\)</span> операций</li>
 <li><span class="math inline">\(L f(x) = φ(x) \sum \dfrac{Y_i}{x - x_i}\qquad\)</span> <span class="math inline">\((n - 1) + (n + 1)\)</span> операций<br />
-Итого - <span class="math inline">\( n^2 + O(n)\)</span> операций — есть значительно более быстрый способ.</li>
+Итого - <span class="math inline">\( 2n^2 + O(n)\)</span> операций — есть значительно более быстрый способ.</li>
 </ol>
 <p>Ваша задача - реализовать два метода из <a href="https://zenderro.github.io/programming-semester-6/methods">списка предложенных</a>, которые я выдам чуть позже.</p>
 </section>
