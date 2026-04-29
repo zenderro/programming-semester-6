@@ -65,8 +65,64 @@ class="email">andrey.zenzinov@math.msu.ru</a></p>
 <p><a href="https://zenderro.github.io/programming-semester-6/"
 class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
 </section>
-<section id="общая-схема" class="slide level1">
-<h1>Общая схема</h1>
+<section id="кусочно-многочленная-интерполяция" class="slide level1">
+<h1>Кусочно-многочленная интерполяция</h1>
+<p>Пусть <span
+class="math inline"><em>f</em> ∈ <em>C</em><sup>(<em>r</em>)</sup>([<em>a</em>, <em>b</em>])</span>.
+Можем построить приближающий многочлен степени <span
+class="math inline"><em>k</em><em>n</em></span> или сделать
+кусочно-многочленное приближение <span
+class="math inline"><em>k</em></span> многочленами степени <span
+class="math inline"><em>n</em></span>.</p>
+<p>По Теореме Джексона для апроксимации многочленом <span
+class="math inline"><em>P</em><em>f</em></span> степени <span
+class="math inline"><em>n</em> − 1</span>:</p>
+<p><span class="math display">$$
+||f-Pf||_C \le const(r)(\frac{b-a}{n-1})^r \omega (f^{(r)};
+\frac{b-a}{2(n-1-r)}), где\\
+\omega(g,h)=sup\{|g(x)-g(y)|: x, y \in [a,b], |x-y|\le h\}
+$$</span> - модуль непрерывности функции <span
+class="math inline"><em>g</em></span></p>
+<p>Разбиение отрезка <span
+class="math inline">[<em>a</em>, <em>b</em>]</span> на <span
+class="math inline"><em>k</em></span> частей по сравнению с увеличением
+степени многочлена степени <span
+class="math inline"><em>k</em><em>n</em></span>:</p>
+<ol type="1">
+<li>Требуется решать <span class="math inline"><em>k</em></span> систем
+размера <span class="math inline"><em>n</em></span> вместо одной размера
+<span class="math inline"><em>k</em><em>n</em></span>.</li>
+<li>С ростом степени многочлена растёт обусловленность базиса. Разбиение
+отрезка на части не влечёт её увеличения.</li>
+</ol>
+</section>
+<section id="кусочно-линейная-интерполяция" class="slide level1">
+<h1>Кусочно-линейная интерполяция</h1>
+<p>Пусть заданы точки <span
+class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub> &lt; ... &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em></span>
+и значения <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span> в
+этих точках.</p>
+<p>На каждом отрезке <span
+class="math inline">[<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>]</span>
+<span class="math inline"><em>I</em><sub>2</sub><em>f</em></span> -
+линейная функция.</p>
+<p>По интерполяционной формуле Ньютона для всех <span
+class="math inline"><em>x</em> ∈ [<em>x</em><sub><em>i</em></sub>, <em>x</em><sub><em>i</em> + 1</sub>]</span>:</p>
+<p><span class="math display">$$
+\begin{equation}
+I_2f(x) = f(x_i) + (x-x_i)f(x_i;x_{i+1}) = f(x_i) +
+(x-x_i)\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i}
+\end{equation}
+$$</span> <span class="math display">$$
+\begin{equation}
+||f-I_2f||_{C([a,b])} \lt \frac{1}{8}h^2||f''||_{C([a,b])}, где\\
+h=\max_{i=1,2,\dots,n-1}(x_{i+1}-x_i)
+\end{equation}
+$$</span></p>
+</section>
+<section id="кусочно-кубическая-интерполяция" class="slide level1">
+<h1>Кусочно-кубическая интерполяция</h1>
 <p>Пусть заданы точки <span
 class="math inline"><em>a</em> = <em>x</em><sub>1</sub> &lt; <em>x</em><sub>2</sub> &lt; ... &lt; <em>x</em><sub><em>n</em></sub> = <em>b</em></span>
 и значения <span
@@ -87,7 +143,7 @@ $$</span></p>
 <p><span class="math display"><em>d</em><sub><em>i</em></sub></span> -
 свободные параметры, выбор которых определяется конкретным методом</p>
 </section>
-<section id="общая-схема-1" class="slide level1">
+<section id="общая-схема" class="slide level1">
 <h1>Общая схема</h1>
 <p><span
 class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>a</em><sub>1, <em>i</em></sub> + <em>a</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>) + <em>a</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>a</em><sub>4, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup>(<em>x</em> − <em>x</em><sub><em>i</em> + 1</sub>)</span></p>
@@ -105,7 +161,7 @@ $$</span></p>
 class="math inline">$f(x_i;x_{i+1})=\frac{f(x_{i+1})-f(x_i)}{x_{i+1}-x_i}$</span>
 - разделенная разность</p>
 </section>
-<section id="общая-схема-2" class="slide level1">
+<section id="общая-схема-1" class="slide level1">
 <h1>Общая схема</h1>
 <p><span
 class="math display"><em>P</em><sub><em>i</em></sub>(<em>x</em>) = <em>c</em><sub>1, <em>i</em></sub> + <em>c</em><sub>2, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>) + <em>c</em><sub>3, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>2</sup> + <em>c</em><sub>4, <em>i</em></sub>(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<sup>3</sup></span></p>
