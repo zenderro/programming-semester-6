@@ -68,12 +68,7 @@ class="uri">https://zenderro.github.io/programming-semester-6/</a></p>
 <section id="кусочно-многочленная-интерполяция" class="slide level1">
 <h1>Кусочно-многочленная интерполяция</h1>
 <p>Пусть <span
-class="math inline"><em>f</em> ∈ <em>C</em><sup>(<em>r</em>)</sup>([<em>a</em>, <em>b</em>])</span>.
-Можем построить приближающий многочлен степени <span
-class="math inline"><em>k</em><em>n</em></span> или сделать
-кусочно-многочленное приближение <span
-class="math inline"><em>k</em></span> многочленами степени <span
-class="math inline"><em>n</em></span>.</p>
+class="math inline"><em>f</em> ∈ <em>C</em><sup>(<em>r</em>)</sup>([<em>a</em>, <em>b</em>])</span>.</p>
 <p>По Теореме Джексона для апроксимации многочленом <span
 class="math inline"><em>P</em><em>f</em></span> степени <span
 class="math inline"><em>n</em> − 1</span>:</p>
@@ -83,6 +78,11 @@ class="math inline"><em>n</em> − 1</span>:</p>
 \omega(g,h)=sup\{|g(x)-g(y)|: x, y \in [a,b], |x-y|\le h\}
 $$</span> - модуль непрерывности функции <span
 class="math inline"><em>g</em></span></p>
+<p>Можем построить приближающий многочлен степени <span
+class="math inline"><em>k</em><em>n</em></span> или сделать
+кусочно-многочленное приближение <span
+class="math inline"><em>k</em></span> многочленами степени <span
+class="math inline"><em>n</em></span>.</p>
 <p>Разбиение отрезка <span
 class="math inline">[<em>a</em>, <em>b</em>]</span> на <span
 class="math inline"><em>k</em></span> частей по сравнению с увеличением
@@ -183,7 +183,7 @@ class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами Эрмита</h1>
 <p>Известны значения <span
 class="math inline"><em>f</em>(<em>x</em>)</span> и <span
-class="math inline"><em>f</em>′(<em>x</em>)</span> в точках <span
+class="math inline"><em>f</em> ′(<em>x</em>)</span> в точках <span
 class="math inline"><em>x</em><sub><em>i</em></sub></span>, <span
 class="math inline"><em>i</em> = 1, .., <em>n</em></span></p>
 <p><span
@@ -372,7 +372,7 @@ class="math display">(<em>P</em><em>f</em>)″(<em>x</em><sub>1</sub>) = 0,�
 class="math inline"><em>f</em> ″(<em>x</em><sub>1</sub>) = 0</span> и
 <span
 class="math inline"><em>f</em> ″(<em>x</em><sub><em>n</em></sub>) = 0</span>
-получаем <span class="math display">$$
+в системе на прошлом слайде получаем <span class="math display">$$
 \begin{cases}
 2d_1+d_2 = 3f(x_1;x_2) \\
 d_{n-1}+2d_n = 3f(x_{n-1};x_n)\\
