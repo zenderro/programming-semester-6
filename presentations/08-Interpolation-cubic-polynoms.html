@@ -116,7 +116,7 @@ I_2f(x) = f(x_i) + (x-x_i)f(x_i;x_{i+1}) = f(x_i) +
 \end{equation}
 $$</span> <span class="math display">$$
 \begin{equation}
-||f-I_2f||_{C([a,b])} \lt \frac{1}{8}h^2||f''||_{C([a,b])}, где\\
+||f-I_2f||_{C([a,b])} \le \frac{1}{8}h^2||f''||_{C([a,b])}, где\\
 h=\max_{i=1,2,\dots,n-1}(x_{i+1}-x_i)
 \end{equation}
 $$</span></p>
@@ -181,6 +181,11 @@ $$</span></p>
 <section id="кусочная-интерполяция-кубическими-многочленами-эрмита"
 class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами Эрмита</h1>
+<p>Известны значения <span
+class="math inline"><em>f</em>(<em>x</em>)</span> и <span
+class="math inline"><em>f</em>′(<em>x</em>)</span> в точках <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>, <span
+class="math inline"><em>i</em> = 1, .., <em>n</em></span></p>
 <p><span
 class="math display"><em>d</em><sub><em>i</em></sub> = <em>f</em> ′(<em>x</em><sub><em>i</em></sub>)</span></p>
 <p>Свойства:</p>
@@ -200,6 +205,10 @@ class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>
 <section id="кусочная-интерполяция-кубическими-многочленами-бесселя"
 class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами Бесселя</h1>
+<p>Известны значения <span
+class="math inline"><em>f</em>(<em>x</em>)</span> в точках <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>, <span
+class="math inline"><em>i</em> = 1, .., <em>n</em></span></p>
 <p><span
 class="math display"><em>P</em><sub>(<em>i</em>)</sub>(<em>x</em>) = <em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>) + (<em>x</em> − <em>x</em><sub><em>i</em> − 1</sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>; <em>x</em><sub><em>i</em></sub>) + (<em>x</em> − <em>x</em><sub><em>i</em> − 1</sub>)(<em>x</em> − <em>x</em><sub><em>i</em></sub>)<em>f</em>(<em>x</em><sub><em>i</em> − 1</sub>; <em>x</em><sub><em>i</em></sub>; <em>x</em><sub><em>i</em> + 1</sub>)</span></p>
 <p><span class="math display">$$d_i = P'_{(i)}(x_i) =
@@ -234,6 +243,12 @@ class="math inline"><em>P</em>(<em>f</em> + <em>g</em>) = <em>P</em><em>
 <section id="кусочная-интерполяция-кубическими-многочленами-акимы"
 class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами Акимы</h1>
+<p>Известны значения <span
+class="math inline"><em>f</em>(<em>x</em>)</span> в точках <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>, <span
+class="math inline"><em>i</em> = 1, .., <em>n</em></span>. Метод
+используется для борьбы с выбросами из-за погрешности значений
+функции.</p>
 <p><span class="math display">$$
 d_i =
 \begin{cases}
@@ -275,6 +290,13 @@ id="кусочная-интерполяция-кубическими-много�
 class="slide level1">
 <h1>Кусочная интерполяция кубическими многочленами с использованием
 разделённых разностей</h1>
+<p>Известны значения <span
+class="math inline"><em>f</em>(<em>x</em>)</span> в точках <span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>, <span
+class="math inline"><em>i</em> = 1, .., <em>n</em></span>. Небольшие
+требования к гладкости функции, можно использовать для снижения влияния
+погрешности значений <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>)</span>.</p>
 <p><span class="math display">$$
 d_i =
 \begin{cases}
@@ -336,13 +358,14 @@ class="math display"><em>d</em><sub>2</sub> = <em>f</em> ′(<em>x</em><sub
 d_{n-1} + 2d_n = 3f(x_{n-1};x_n) + \frac{1}{2}f''(x_n)(x_n-x_{n-1})\\
 \end{cases}$$</span></p>
 <p>В методе Акимы <span
-class="math inline"><em>d</em><sub>2</sub></span> и <span
-class="math inline"><em>d</em><sub><em>n</em> − 1</sub></span>
-определяются по первой производной. В остальных методах эти параметры
-известны.</p>
+class="math inline"><em>d</em><sub>1</sub></span> и <span
+class="math inline"><em>d</em><sub><em>n</em></sub></span> определяются
+по первой производной. В остальных методах эти параметры известны.</p>
 </section>
 <section id="естественные-граничные-условия" class="slide level1">
 <h1>Естественные граничные условия</h1>
+<p>Этот метод используется, когда нет никакой дополнительной информации
+о приближаемой функции <span class="math inline"><em>f</em></span>.</p>
 <p><span
 class="math display">(<em>P</em><em>f</em>)″(<em>x</em><sub>1</sub>) = 0, (<em>P</em><em>f</em>)″(<em>x</em><sub><em>n</em></sub>) = 0</span></p>
 <p>При <span
@@ -359,6 +382,8 @@ $$</span></p>
 </section>
 <section id="отсутствие-узла-в-приграничных-узлах" class="slide level1">
 <h1>Отсутствие узла в приграничных узлах</h1>
+<p>Этот метод используется, когда нет никакой дополнительной информации
+о приближаемой функции <span class="math inline"><em>f</em></span>.</p>
 <p>Считаем, что <span
 class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>.</p>
 <p>В этом случае <span class="math inline"><em>P</em><sub>1</sub></span>
@@ -378,11 +403,13 @@ class="math inline"><em>P</em> ′<sub>1</sub>(<em>x</em><sub>3</sub>) = <e
 class="math inline"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub></span>
 и <span
 class="math inline"><em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>
-строятся как интерполяционные многочлены 3й степени.</p>
+строятся как интерполяционные многочлены 3й степени с кратным узлом.</p>
 </section>
 <section id="дополнительный-узел-в-приграничных-узлах"
 class="slide level1">
 <h1>Дополнительный узел в приграничных узлах</h1>
+<p>Этот метод используется, когда нет никакой дополнительной информации
+о приближаемой функции <span class="math inline"><em>f</em></span>.</p>
 <p>Добавляются дополнительные точки <span
 class="math inline"><em>x</em><sub>0</sub> &lt; <em>x</em><sub>1</sub></span>
 и <span
@@ -393,6 +420,8 @@ class="math inline"><em>f</em>(<em>x</em><sub><em>n</em> + 1</sub>)</span>.<
 </section>
 <section id="экстраполяция-в-приграничных-узлах" class="slide level1">
 <h1>Экстраполяция в приграничных узлах</h1>
+<p>Этот метод используется, когда нет никакой дополнительной информации
+о приближаемой функции <span class="math inline"><em>f</em></span>.</p>
 <p>Пусть <span
 class="math inline"><em>Q</em><sub><em>k</em></sub>(<em>x</em>)</span> -
 интерполяционный многочлен Лагранжа степени <span
