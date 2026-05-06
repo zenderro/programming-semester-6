@@ -159,6 +159,7 @@ class="slide level1">
 <h1>По первой производной</h1>
 <p><span
 class="math display"><em>d</em><sub>1</sub> = <em>f</em> ′(<em>x</em><sub>1</sub>), <em>d</em><sub><em>n</em></sub> = <em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span></p>
+<p>Такой сплайн называется <strong>фундаментальным сплайном</strong></p>
 <p>Оценки погрешности:</p>
 <p><span class="math display">$$
 ||f-Pf||_{C([a,b])} \lt \frac{5}{384}h^4||f^{(4)}||_{C([a,b])} \\
@@ -212,7 +213,7 @@ class="math inline"><em>P</em> ′<sub>1</sub>(<em>x</em><sub>3</sub>) = <e
 class="math inline"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub></span>
 и <span
 class="math inline"><em>P</em><sub><em>n</em> − 2</sub> ≡ <em>P</em><sub><em>n</em> − 1</sub></span>
-строятся как интерполяционные многочлены 3й степени.</p>
+строятся как интерполяционные многочлены 3й степени с кратным узлом.</p>
 </section>
 <section id="отсутствие-узла-в-приграничных-узлах-1"
 class="slide level1">
@@ -221,7 +222,7 @@ class="slide level1">
 <h2 id="подход-1">Подход 1</h2>
 <p>Из <span
 class="math inline"><em>P</em><em>f</em> ∈ <em>C</em><sup>(2)</sup>([<em>a</em>, <em>b</em>])</span>
-получаем</p>
+получаем <span class="math inline"><em>n</em> − 4</span> уравнения:</p>
 <p><span class="math display">$$
 P''_{i-1}(x_i)=P''_i(x_i) \\
 i = 3,4, ..., n-2
@@ -280,7 +281,8 @@ class="slide level1">
 <h1>Дополнительный узел в приграничных узлах. Подход 2</h1>
 <p><span class="math inline"><em>P</em><sub>1</sub></span> и <span
 class="math inline"><em>P</em><sub><em>n</em> − 1</sub></span> строятся
-как интерполяционные многочлены 3 степени по точкам <span
+как интерполяционные многочлены 3 степени с кратным узлом по точкам
+<span
 class="math inline"><em>x</em><sub>0</sub>, <em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>
 и <span
 class="math inline"><em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub>, <em>x</em><sub><em>n</em> + 1</sub></span>
@@ -291,8 +293,9 @@ P_{n-1}(x_{n-1})=f(x_{n-1}), P_{n-1}(x_n)=f(x_n), P_{n-1}(x_{n+1}) =
 f(x_{n+1}), P'_{n-1}(x_{n-1})=d_{n-1}
 $$</span></p>
 <p><span class="math inline"><em>d</em><sub>1</sub></span> и <span
-class="math inline"><em>d</em><sub><em>n</em></sub></span> не
-участвуют.</p>
+class="math inline"><em>d</em><sub><em>n</em></sub></span> не участвуют.
+Получается <span class="math inline"><em>n</em> − 2</span> уравнений для
+<span class="math inline"><em>n</em> − 2</span> неизвестных:</p>
 <p><span class="math display">$$
 P''_{i-1}(x_i)=P''_i(x_i), \\
 i = 2,3, ..., n-1
@@ -311,8 +314,10 @@ class="slide level1">
 <p>Приближения к <span
 class="math inline"><em>f</em> ′(<em>x</em><sub>1</sub>)</span> и <span
 class="math inline"><em>f</em> ′(<em>x</em><sub><em>n</em></sub>)</span>
-вычисляются так же, как для приближения кубическими многочленами
-Бесселя.</p>
+вычисляются так же, как для приближения кубическими многочленами Бесселя
+(<span
+class="math inline"><em>d</em><sub><em>i</em></sub> = <em>P</em> ′<sub>(<em>i</em>)</sub>(<em>x</em><sub><em>i</em></sub>)</span>).
+Получаем первое и последнее уравнения.</p>
 <p>Значения <span
 class="math inline"><em>f</em>(<em>x</em><sub>0</sub>)</span> и <span
 class="math inline"><em>f</em>(<em>x</em><sub><em>n</em> + 1</sub>)</span>
@@ -489,6 +494,8 @@ class="math inline"><em>v</em><sub>1</sub>, <em>v</em><sub><em>n</em> + 1<
 не входят в систему уравнений, <span
 class="math inline"><em>P</em><sub>1</sub>, <em>P</em><sub><em>n</em></sub></span>
 строятся по интерполяционной ф-ле Ньютона с кратными узлами.</p>
+<p><span
+class="math inline"><em>P</em><sub>1</sub>(<em>x</em><sub>1</sub>) = <em>f</em>(<em>x</em><sub>1</sub>), <em>P</em> ′<sub>1</sub>(<em>x</em><sub>1</sub>) = <em>f</em> ′(<em>x</em><sub>1</sub>), <em>P</em><sub>1</sub>(<em>ξ</em><sub>2</sub>) = <em>v</em><sub>2</sub></span></p>
 <p>В результате имеем недостающие уравнения</p>
 <p><span class="math display">$$
 \begin{cases}
@@ -538,12 +545,16 @@ class="math display"><em>P</em><sub>1</sub> ≡ <em>P</em><sub>2</sub>, <e
 <span
 class="math inline">[<em>ξ</em><sub>1</sub>, <em>ξ</em><sub>3</sub>]</span>
 по точкам <span
-class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>.
-<span class="math inline"><em>P</em><sub><em>n</em></sub></span> - на
+class="math inline"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub></span>.</p>
+<p><span
+class="math inline"><em>P</em><sub>1</sub>(<em>x</em><sub>1</sub>) = <em>f</em>(<em>x</em><sub>1</sub>), <em>P</em><sub>1</sub>(<em>x</em><sub>2</sub>) = <em>f</em>(<em>x</em><sub>2</sub>), <em>P</em><sub>1</sub>(<em>ξ</em><sub>3</sub>) = <em>v</em><sub>3</sub></span>.</p>
+<p><span class="math inline"><em>P</em><sub><em>n</em></sub></span> - на
 отрезке <span
 class="math inline">[<em>ξ</em><sub><em>n</em> − 1</sub>, <em>ξ</em><sub><em>n</em> + 1</sub>]</span>
 по точкам <span
 class="math inline"><em>x</em><sub><em>n</em> − 1</sub>, <em>x</em><sub><em>n</em></sub></span>.</p>
+<p><span
+class="math inline"><em>P</em><sub><em>n</em></sub>(<em>x</em><sub><em>n</em> − 1</sub>) = <em>f</em>(<em>x</em><sub><em>n</em> − 1</sub>), <em>P</em><sub><em>n</em></sub>(<em>x</em><sub><em>n</em></sub>) = <em>f</em>(<em>x</em><sub><em>n</em></sub>), <em>P</em><sub><em>n</em></sub>(<em>ξ</em><sub><em>n</em> − 1</sub>) = <em>v</em><sub><em>n</em> − 1</sub></span>.</p>
 <p>Тогда <span
 class="math inline"><em>P</em><sub>1</sub>(<em>ξ</em><sub>3</sub>) = <em>v</em><sub>3</sub>, <em>P</em><sub><em>n</em></sub>(<em>x</em><sub><em>n</em> − 1</sub>) = <em>v</em><sub><em>n</em> − 1</sub></span></p>
 <p><span
