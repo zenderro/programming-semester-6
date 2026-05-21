@@ -21,7 +21,10 @@ layout: default
 [Примеры MPI](https://parallel.ru/tech/tech_dev/MPI%26OpenMP/examples)
 
 ## Постановка задачи линейной интерполяции. Базовые требования к программе. Рисование в Qt5
-[презентация — html](presentations/05-Interpolation-Start.html) [список методов — html](methods)
+[презентация — html](presentations/05-Interpolation-Start.html) 
+
+[список методов — html](methods)
+
 [требования — pdf](presentations/require-graph-1D.pdf)
 
 ## Методы интерполяции кусочно-кубическими функциями
@@ -32,6 +35,9 @@ layout: default
 
 ## Задача 3
 — приближение функции двух переменных тензорными произведениями с использованием тех же [методов](methods), которые были выданы в задаче 2.
+
 [презентация — html](presentations/07-Task3.html) 
+
 [требования — pdf](presentations/require-graph-2D.pdf)
-[Работа с OpenGL на Qt4](http://www.wiki.crossplatform.ru/index.php/Работа_с_OpenGL_на_Qt_4_(часть_1))
+
+[Работа с OpenGL на Qt4](https://www.gamedev.ru/code/articles/OpenGL_Qt4)
